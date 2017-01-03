@@ -1,0 +1,20 @@
+/*----------------------------------------------------------------------
+# Package - JM Template
+# ----------------------------------------------------------------------
+# Author - JoomlaMan http://www.joomlaman.com
+# Copyright Copyright under commercial licence (C) 2012 - 2013 JoomlaMan
+# License http://www.gnu.org/licenses/gpl-3.0.html GNU/GPLv3
+-----------------------------------------------------------------------*/
+@media (max-width:979px) {
+    .container{
+        width: auto;
+    }
+    #section-header .superhero-dropdown > ul > li > a, #section-header .site-logo a{
+        line-height: 45px!important;
+    }
+    #section-feature,#section-topls,#section-latest{
+        img{
+            height: auto!important;
+        }
+    }
+}

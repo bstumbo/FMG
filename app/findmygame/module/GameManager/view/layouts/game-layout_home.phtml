@@ -1,0 +1,60 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('Find Your Game'. $this->translate('Find Your Game'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath('css/style.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+                        ->prependStylesheet($this->basePath('css/animate.css'))
+                        ->prependStylesheet($this->basePath('css/block.css'))
+                        ->prependStylesheet($this->basePath('css/contextual.css'))
+                        ->prependStylesheet($this->basePath('css/font-awesome.min.css'))
+                        ->prependStylesheet($this->basePath('css/main.css'))
+                        ->prependStylesheet($this->basePath('css/me-theme-preset1.css'))
+                        ->prependStylesheet($this->basePath('css/style2.css'))
+                        ->prependStylesheet($this->basePath('dist/css/select2.min.css'))
+                        ->prependStylesheet('http://getmygame.com/sites/all/themes/superhero/vendor/bootstrap/css/bootstrap.min.css?o4nt8k')
+                        ->prependStylesheet('http://getmygame.com/sites/all/themes/superhero/vendor/font-awesome/css/font-awesome.min.css?o4nt8k')
+                        ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath('dist/js/select2.min.js'))
+            ->prependFile($this->basePath('js/main.js'))
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile('https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js')
+            ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+
+    </head>
+    <body style="padding-top: 0px; padding-bottom: 0px;" class="html not-front logged-in no-sidebars page-node page-node- page-node-90 node-type-page home-page-creative wide ltr">
+        <div class="body-innerwrapper">
+            <div class="body">
+                <section  id="section-header" class="section section-header superhero-sticky">
+                    <div class="container">
+                        <div class="row">
+                            <div class="region region-logo col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                                <div class="site-logo clearfix">
+                                    <a href="<?php echo $this->url('findmygame/default') ?>" rel="home"><img src="http://getmygame.com/sites/default/files/findmygame_logo_small.png" id="logo" alt="logo"/></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <?php echo $this->content; ?>
+                <?php echo $this->inlineScript() ?>
+            </div>
+        </div>
+    </body>
+</html>

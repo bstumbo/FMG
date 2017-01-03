@@ -1,0 +1,35 @@
+p:empty{
+	margin: 0;
+}
+.superhero-gmap-shortcode img{
+	max-width:none !important;
+}
+.superhero-gmap-shortcode label {
+	width: auto; display:inline;
+}
+.superhero-gmap-shortcode img.img-responsive{
+	max-width: 100px !important;
+}
+.infobox {
+    display: inline-block;
+    padding: 10px 5px 5px;
+    position: relative;
+    width: 270px;
+}
+.infobox img {
+    margin-right: 10px;
+    width: 95px !important;
+    float: left;
+}
+.infobox .title {
+    font-family: 'Helvetica Neue',Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
+.infobox .title a {
+    font-weight: bold;
+}

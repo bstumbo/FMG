@@ -1,0 +1,134 @@
+<script type="text/javascript">
+$(document).ready(function() {
+  $(".affiliations").select2();
+});
+</script>
+
+<section  id="section-postcontent" class="section section-postcontent hidden-xs hidden-sm">
+		<div class="sh-container">
+		<div class="row">
+			<div class="region region-postcontent-first">
+	<div id="block-block-48" class="block block-block center contextual-links-region superhero-block parallax" style="background-image: url('http://52.39.192.1/sites/default/files/winners_parallax.jpg'); padding-top: 50px; padding-bottom: 100px;" data-stellar-background-ratio="0.50">
+    <div class="block-contents " data-appear-animation="pulse">
+	  <div class="content sh-block-content">
+	    <div style="margin-left: auto; margin-right: auto; max-width: 700px;">
+<h2 class="rtecenter"><span style="color:#FFFFFF;">FIND MY GAME</span></h2>
+  <form method="post" name="FindMyGameForm" action="&#x2F;app&#x2F;findmygame&#x2F;public&#x2F;games&#x2F;search" class="ajax" id="FindMyGameForm">
+    <div style="clear: both;">
+	  <input type="text" id="edit-name" name="Location" value="Zip Code" size="80" maxlength="255" class="form-text required">
+    </div>
+    <div style="max-width: 700px; margin-top: 10px; margin-bottom: 25px;">
+     <select name="sports" style="display: inline-block;">
+      <option value="NULL">Sport</option>
+      <option value="0">Baseball</option>
+      <option value="1">Soccer</option>
+    </select>
+     <select name="leagues" style="display: inline-block;">
+      <option value="NULL">League</option>
+      <option value="0">MLB</option>
+      <option value="1">MLS</option>
+      <option value="2">Euro Cup</option>
+    </select>
+    <select name="affiliations" class="affiliations" style="display: inline-block;">
+      <option value="NULL">Team</option>
+		<?php foreach ($affs as $aff) :?>
+				<option value="<?php print $aff->getTeamid() ;?>"><?php print $aff->getTeamname();?></option> 
+		<?php endforeach; ?>
+    </select>
+    </div>
+	<input type="submit" name="submit" class="btn btn-primary btn-block btn-lg" value="submit">
+  </form>
+</div>
+	  </div>
+	</div>
+	<div style="clear:both" class="clear-fix"></div>
+</div>
+</div>
+		</div>
+	</div>
+</section>
+
+<?php
+  print $this->partial('result-partial');
+  ?>
+
+
+
+<section  id="section-callus" class="section section-callus">
+		<div class="container">
+		<div class="row">
+			<div class="region region-callus">
+	<div id="block-block-28" class="block block-block contextual-links-region superhero-block">
+	
+	<div class="block-contents " data-appear-animation="fadeInDown">
+	  <div class="content sh-block-content">
+	    <h3 class="rtecenter">Want to work with us? <a href="mailto:admin@joomlaman.com?&amp;subject=Ask%20a%20question">Email us</a>, give us a call on 0100 563 074 or <a href="http://demo.cmssuperheroes.com/Drupal/me/contact">visit us</a>.</h3>
+	  </div>
+	</div>
+	<div style="clear:both" class="clear-fix"></div>
+</div>
+</div>
+		</div>
+	</div>
+</section>
+<section  id="section-bottom" class="section section-bottom">
+		<div class="container">
+		<div class="row">
+			<div class="region region-bottom-first col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	<div id="block-block-7" class="block block-block contextual-links-region superhero-block">
+	
+	<div class="block-contents " data-appear-animation="fadeInLeft">
+	  <div class="content sh-block-content">
+	    <p><img alt="" src="/Drupal/me/sites/default/files/logo2.png" style="width: 43px; height: 23px;" /></p>
+<p>Lorem ipsum dolor sit amet elit, consectetur adipiscing. Vestibulum luctus ipsum id quam euismod a malesuada sapien euismot. Vesti bulum ultricies elementum interdum.</p>
+<p>© 2014 <a href="http://www.cmssuperheroes.com" target="_blank">www.cmssuperheroes.com</a></p>
+	  </div>
+	</div>
+	<div style="clear:both" class="clear-fix"></div>
+</div>
+</div>
+<div class="region region-bottom-second col-xs-12 col-sm-4 col-md-4 col-lg-4">
+	<div id="block-block-27" class="block block-block gettouch contextual-links-region superhero-block">
+	
+	<div class="block-contents " data-appear-animation="fadeInUp">
+	  	            <h3 class="block-title" >Get in touch</h3>
+	  <div class="content sh-block-content">
+	    <ul class="unstyled"><li><i class="fa fa-map-marker"></i><span>1 Made Ave, London United Kingdom, L10 9BB</span></li>
+<li><i class="fa fa-phone"></i><span>0861 000 000</span></li>
+<li><i class="fa fa-envelope"></i><span><a href="mailto:hello@me.com">hello@me.com</a></span></li>
+</ul>	  </div>
+	</div>
+	<div style="clear:both" class="clear-fix"></div>
+</div>
+</div>
+		</div>
+	</div>
+</section>
+<section id="section-footer" class="section section-footer">
+		<div class="container">
+		<div class="row">
+			<div class="region region-footer-second">
+	<div id="block-block-19" class="block block-block contextual-links-region">
+	
+	<div class="block-contents " >
+	  		  <div class="contextual-links-wrapper"><ul class="contextual-links"><li class="block-configure first last"><a href="/admin/structure/block/manage/block/19/configure?destination=node/90">Configure block</a></li>
+</ul></div>	
+	  <div class="content sh-block-content">
+	    <ul><li><span style="font-size:20px;"><a href="#"><span data-toggle="tooltip" data-placement="top" class="superhero-tooltip" data-original-title="Facebook"><i class="fa fa-facebook"><span></span></i></span></a></span></li>
+<li><span style="font-size:20px;"><a href="#"><span data-toggle="tooltip" data-placement="top" class="superhero-tooltip" data-original-title="Twitter"><i class="fa fa-twitter"><span></span></i></span></a></span></li>
+<li><span style="font-size:20px;"><a href="#"><span data-toggle="tooltip" data-placement="top" class="superhero-tooltip" data-original-title="Linkedin"><i class="fa fa-linkedin"><span></span></i></span></a></span></li>
+<li><span style="font-size:20px;"><a href="#"><span data-toggle="tooltip" data-placement="top" class="superhero-tooltip" data-original-title="Youtube"><i class="fa fa-youtube"><span></span></i></span></a></span></li>
+<li><span style="font-size:20px;"><a href="#"><span data-toggle="tooltip" data-placement="top" class="superhero-tooltip" data-original-title="Skype"><i class="fa fa-skype"><span></span></i></span></a></span></li>
+<li><span style="font-size:20px;"><a href="#"><span data-toggle="tooltip" data-placement="top" class="superhero-tooltip" data-original-title="Instagram"><i class="fa fa-instagram"><span></span></i></span></a></span></li>
+<li><span style="font-size:20px;"><a href="#"><span data-toggle="tooltip" data-placement="top" class="superhero-tooltip" data-original-title="Pinterest"><i class="fa fa-pinterest"><span></span></i></span></a></span></li>
+<li><span style="font-size:20px;"><a href="#"><span data-toggle="tooltip" data-placement="top" class="superhero-tooltip" data-original-title="Flickr"><i class="fa fa-flickr"><span></span></i></span></a></span></li>
+</ul>	  </div>
+	</div>
+	<div style="clear:both" class="clear-fix"></div>
+</div>
+</div>
+		</div>
+	</div>
+</section>
+
+

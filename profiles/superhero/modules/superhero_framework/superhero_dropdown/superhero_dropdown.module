@@ -1,0 +1,106 @@
+<?php
+
+/*
+** Implement hook_block_info
+*/
+function superhero_dropdown_block_info(){
+	$blocks['superhero_dropdown_block'] = array(
+		'info' => t('Superhero Dropdown Menu'),
+		'cache' => DRUPAL_NO_CACHE,
+	);
+	return $blocks;
+}
+
+/*
+** Implement hook_block_configure
+*/
+function superhero_dropdown_block_configure($delta = ''){
+	switch ($delta) {
+		case 'superhero_dropdown_block':
+			$form['superhero_dropdown_menu'] = array(
+				'#type' => 'select',
+				'#title' => t('Menu'),
+				'#description' => t('The menu you want to be displayed using Superhero dropdown'),
+				'#required' => true,
+				'#default_value' => variable_get('superhero_dropdown_menu', 'main-menu:0'),
+				'#options' => menu_parent_options(menu_get_menus(), array('mlid' => 0,'plid'=>0)),
+			);
+			return $form;
+			break;
+	}
+}
+
+/*
+** Implement hook_block_save.
+*/
+function superhero_dropdown_block_save($delta = '', $edit = array()) {
+	switch ($delta){
+		case 'superhero_dropdown_block':
+			variable_set('superhero_dropdown_menu', $edit['superhero_dropdown_menu']);
+			break;
+	}
+}
+
+/*
+** Implement hook_block_view
+*/
+function superhero_dropdown_block_view($delta){
+	switch ($delta) {
+		case 'superhero_dropdown_block':
+			return _superhero_dropdown_block();
+			break;
+		default:
+			return array('subject'=>'','content'=>'');
+		}
+}
+
+/*
+**Implements hook_theme()
+*/
+function superhero_dropdown_theme(&$vars){
+	$module_path = drupal_get_path('module', 'superhero_dropdown');
+	$base = array(
+		'path' => "{$module_path}/theme",
+	);
+	return array(
+		'superhero_dropdown' => $base + array(
+			'template' => 'dropdown',
+			'variables' => array('items'=>NULL),
+		)
+	);
+}
+
+/*
+**Helper function to call theme.
+*/
+function _superhero_dropdown_block(){
+	drupal_add_css(drupal_get_path('module','superhero_dropdown').'/css/superhero-dropdown.css');
+	drupal_add_js(drupal_get_path('module','superhero_dropdown').'/js/superhero-dropdown.js');
+	$items = array();
+	$menu = explode(':',variable_get('superhero_dropdown_menu', 'main-menu:0'));
+	$tree = menu_tree_all_data($menu[0]);
+	$menu_tree = _superhero_dropdown_submenu_tree_all_data($tree, $menu[1]);
+        $menu_tree_output = menu_tree_output($menu_tree);
+	$items['menu'] = render($menu_tree_output);
+	$block = array(
+		'subject' => '',
+		'content' => theme('superhero_dropdown', array('items'=>$items)),
+	);
+	return $block; 
+}
+
+function _superhero_dropdown_submenu_tree_all_data($tree, $plid=0) {
+    if($plid == 0) return $tree;
+		$ret = array();
+		foreach ($tree as $branch){
+      if ($branch['link']['mlid'] == $plid){
+        $ret = $branch['below'];
+				return $ret;
+        break;
+      }elseif(is_array($branch['below'])){
+				$ret = _superhero_dropdown_submenu_tree_all_data($branch['below'],$plid);
+				if(!empty($ret)) return $ret;
+			}
+    }
+    return $ret;
+}

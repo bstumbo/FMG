@@ -1,0 +1,27 @@
+<?php
+echo '<h1>Bars in Database</h1>';
+
+?>
+
+<p>
+    <a href="<?php echo $this->url('findmygame/default', array('controller' => 'index', 'action'=>'manage'));?>">Add new bar</a>
+</p>
+
+<table class="table">
+<tr>
+    <th>Name</th>
+    <th>Bar ID</th>
+</tr>
+<?php foreach ($bars as $bar) : ?>
+<tr>
+    <td><?php echo $this->escapeHtml($bar->getName());?></td>
+    <td><?php echo $this->escapeHtml($bar->getId());?></td>
+    <td>
+        <a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment> NOT ONLY grace-drops
+            array('controller' => 'index', 'action'=>'edit', 'id' => $bar->getId()));?>">Edit</a>
+        <a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment>
+            array('controller' => 'index', 'action'=>'delete', 'id' => $bar->getId()));?>">Delete</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>

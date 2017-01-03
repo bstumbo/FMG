@@ -1,0 +1,180 @@
+<section>
+    <div class="container">
+      <div class="row">
+        <div class="region region-feature-first col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <img style="width: 100%; max-height: 300px;" src="<?php if(!null == $bar->getBarimage()){ echo "../../../../module/GameManager/src/GameManager/Assets/" . $bar->getBarimage();} else { echo "http://placehold.it/140x100"; } ?>"/>
+        </div>
+        <div class="region region-feature-first col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div style="padding-left: 5%;">
+            <h1><strong><?php echo $bar->getName();?></strong></h1>
+            <h6><strong><?php echo $bar->getLocation(); ?></strong></h6>
+            <h6><strong>Hours: <?php echo $bar->getHours(); ?></strong></h6>
+            <h6><strong>Phone: <?php echo $bar->getPhone(); ?></strong></h6>
+            <h6><strong>Website: <a href="<?php echo $bar->getWebsite(); ?>"><?php echo $bar->getWebsite(); ?></a></strong></h6>
+
+          </div>
+          <!--<div style="margin-top: 5%; float: right; position: relative; z-index: 5; background: #000; width: 150%; height: 100px;">
+            
+          </div> -->
+        </div>
+      </div>
+    </div>
+    </section>
+    <section>
+    <div class="container">
+      <div class="row">
+        <div class="region region-feature-first col-xs-12 col-sm-12 col-md-8 col-lg-8">
+          <h2>General Bar Info</h2>
+            <table class="table">
+              <tr>
+                <td><strong>DESCRIPTION</strong></td>
+                <td><?php echo $bar->getBardescription();?></td>
+              </tr>
+              <tr>
+                <td><strong>HAPPY HOUR</strong></td>
+                <td><?php echo $bar->getHhtime();?></td>
+              </tr>
+              <tr>
+                <td><strong>BAR TYPE</strong></td>
+                <td><?php echo $bar->getTypeview();?></td>
+              </tr>
+              <tr>
+                <td><strong>Vibe</strong></td>
+                <td><?php echo $bar->getVibeview();?></td>
+              </tr>
+              <tr>
+                 <td><strong>Family Friendly</strong></td>
+                <td><?php echo $bar->getAgeappropritateview();?></td>
+              </tr>
+            </table>
+            <h2>Viewing</h2>
+            <table class="table">
+              <tr>
+                <td><strong>TELEVISIONS</strong></td>
+                <td><?php echo $bar->getTelevisions();?></td>
+              </tr>
+              <tr>
+                <td><strong>OUTDOOR SEATING</strong></td>
+                <td><?php echo $bar->getOutdoorseatingview();?></td>
+              </tr>
+              <tr>
+                <td><strong>CAPACITY</strong></td>
+                <td><?php echo $bar->getCapacity();?></td>
+              </tr>
+            </table>
+            <h2>Food and Drink</h2>
+            <table class="table">
+              <tr>
+                <td><strong>STAPLES</strong></td>
+                <td><?php echo $bar->getStaples();?></td>
+              </tr>
+              <tr>
+                <td><strong>MENU</strong></td>
+                <td><?php echo $bar->getMenu();?></td>
+              </tr>
+              <tr>
+                <td><strong>FOOD PRICES</strong></td>
+                <td><?php echo $bar->getFoodpricesview();?></td>
+              </tr>
+               <tr>
+                <td><strong>HAPPY HOUR</strong></td>
+                <td><?php echo $bar->getHappyhourview();?></td>
+              </tr>
+               <tr>
+                <td><strong>HAPPY HOUR TIME</strong></td>
+                <td><?php echo $bar->getHhtime();?></td>
+              </tr>
+               <tr>
+                <td><strong>SERVICE TYPE</strong></td>
+                <td><?php echo $bar->getFullbarview();?></td>
+              </tr>
+               <tr>
+                <td><strong>DRINK SPECIALS</strong></td>
+                <td><?php echo $bar->getDrinkspecials();?></td>
+              </tr>
+               <tr>
+                <td><strong>NUMBER OF BARS</strong></td>
+                <td><?php echo $bar->getBarnumber();?></td>
+              </tr>
+            </table>
+              <h2>Location</h2>
+            <table class="table">
+              <tr>
+                <td><strong>PUBLIC TRANSPORTATION</strong></td>
+                <td><?php echo $bar->getPublictransview();?></td>
+              </tr>
+              <tr>
+                <td><strong>TRAIN STATION</strong></td>
+                <td><?php echo $bar->getTrainstation();?></td>
+              </tr>
+              <tr>
+                <td><strong>PARKING</strong></td>
+                <td><?php echo $bar->getParkingview();?></td>
+              </tr>
+               <tr>
+                <td><strong>PARKING TYPE</strong></td>
+                <td><?php echo $bar->getParkingtypeview();?></td>
+              </tr>
+            </table>
+            <h2>Other Info</h2>
+            <table class="table">
+              <tr>
+                <td><strong>TV SPECIALS</strong></td>
+                <td><?php echo $bar->getTvspecials();?></td>
+              </tr>
+              <tr>
+                <td><strong>TV CHANGE</strong></td>
+                <td><?php echo $bar->getTvchangeview();?></td>
+              </tr>
+              <tr>
+                <td><strong>MUSIC</strong></td>
+                <td><?php echo $bar->getMusic();?></td>
+              </tr>
+               <tr>
+                <td><strong>DJ</strong></td>
+                <td><?php echo $bar->getDj();?></td>
+              </tr>
+                 <tr>
+                <td><strong>RELATED ESTABLISHMENT</strong></td>
+                <td><?php echo $bar->getOtherbar();?></td>
+              </tr>
+                  <tr>
+                <td><strong>DRESS CODE</strong></td>
+                <td><?php echo $bar->getDresscodeview();?></td>
+              </tr>
+            </table>
+        </div>
+        <div class="region region-feature-first col-xs-12 col-sm-12 col-md-4 col-lg-4">
+          <div>
+            <h3>TEAMS</h3>
+            <p><?php
+            foreach ($affiliations as $team) {
+                
+                echo $team->getTeamname() . '<br>';
+            }
+            ?></p>
+            
+            <h3>Leagues</h3>
+            <p><?php
+           $leagues = array();
+           $leagues[] = $bar->getLeaguesview();
+            foreach ($leagues as $league) {
+                echo $league . '<br>';
+            }?></p>
+            
+            <h3>Sports</h3>
+            <p><?php
+            $sports = array();
+            $sports[] = $bar->getSportsview();
+            foreach ($sports as $sport){
+                echo $sport . '<br>';}
+                ?></p>
+          </div>
+          <div>
+            <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDLu1f9PKtlbwaKo5y6RFMp76H-_bvexkY&q=<?php echo $bar->getName();?>" width="100%" height="300"frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+</section>

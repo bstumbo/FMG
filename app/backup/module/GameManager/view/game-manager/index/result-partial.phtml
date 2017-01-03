@@ -1,0 +1,12 @@
+ <?php if (isset($_POST['submit'])) { ?> 
+<?php foreach ($bars as $bar) :?>
+
+<?php echo $this->escapeHtml($bar->name);?>
+
+<?php endforeach; ?>
+<?php } ?>
+
+
+
+
+

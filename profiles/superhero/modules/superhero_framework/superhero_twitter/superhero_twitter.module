@@ -1,0 +1,207 @@
+<?php
+
+/* Implement hook_block_info. */
+
+function superhero_twitter_block_info() {
+  $blocks = array();
+  $num = variable_get('superhero_twitter_block_num', 2);
+  for ($i = 1; $i <= $num; $i++) {
+    $blocks["superhero_twitter_block_{$i}"] = array(
+        'info' => t("Superhero Twitter: Block {$i}"),
+        'cache' => DRUPAL_NO_CACHE,
+    );
+  }
+  return $blocks;
+}
+
+/* Implement hook_block_configure. */
+
+function superhero_twitter_block_configure($delta = '') {
+  //$num = variable_get('superhero_twitter_block_num',2);
+  if (substr($delta, 0, 24) == 'superhero_twitter_block_') {
+    $num = filter_var($delta, FILTER_SANITIZE_NUMBER_INT);
+    $form['superhero_twitter_block_oauth_settings'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('OAuth settings'),
+        '#collapsed' => true,
+        '#collapsible' => true,
+    );
+    $form['superhero_twitter_block_oauth_settings']['superhero_twitter_block_consumer_key'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Consumer key'),
+        '#required' => true,
+        '#default_value' => variable_get('superhero_twitter_block_consumer_key_'.$num),
+    );
+    $form['superhero_twitter_block_oauth_settings']['superhero_twitter_block_consumer_secret'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Consumer secret'),
+        '#required' => true,
+        '#default_value' => variable_get('superhero_twitter_block_consumer_secret_'.$num),
+    );
+    $form['superhero_twitter_block_oauth_settings']['superhero_twitter_block_access_token'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Access token'),
+        '#required' => true,
+        '#default_value' => variable_get('superhero_twitter_block_access_token_'.$num),
+    );
+    $form['superhero_twitter_block_oauth_settings']['superhero_twitter_block_access_token_secret'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Access token secret'),
+        '#required' => true,
+        '#default_value' => variable_get('superhero_twitter_block_access_token_secret_'.$num),
+    );
+    $form['superhero_twitter_block_name'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Twitter account'),
+        '#required' => true,
+        '#default_value' => variable_get('superhero_twitter_block_name_'.$num),
+    );
+
+    $form['superhero_twitter_block_count'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Number of tweets'),
+        '#required' => true,
+        '#default_value' => variable_get('superhero_twitter_block_count_'.$num, 5),
+    );
+
+    $form['superhero_twitter_block_avatar'] = array(
+        '#type' => 'select',
+        '#title' => t('Show avatar'),
+        '#options' => array('none' => 'None', 'profile' => 'Profile image', 'icon' => 'Twitter icon'),
+        '#default_value' => variable_get('superhero_twitter_block_avatar_'.$num, 'none'),
+    );
+
+    $form['superhero_twitter_carousel_settings'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Carousel settings'),
+        '#collapsed' => true,
+        '#collapsible' => true,
+    );
+
+    $form['superhero_twitter_carousel_settings']['superhero_twitter_carousel_mode'] = array(
+        '#type' => 'select',
+        '#title' => 'Mode',
+        '#options' => array('horizontal' => 'Horizontal', 'vertical' => 'Vertical', 'fade' => 'Fade'),
+        '#default_value' => variable_get('superhero_twitter_carousel_mode_'.$num, 'vertical'),
+    );
+
+    $form['superhero_twitter_carousel_settings']['superhero_twitter_carousel_minslides'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Min Slides',
+        '#default_value' => variable_get('superhero_twitter_carousel_minslides_'.$num, 1),
+    );
+
+    $form['superhero_twitter_carousel_settings']['superhero_twitter_carousel_maxslides'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Max Slides',
+        '#default_value' => variable_get('superhero_twitter_carousel_maxslides_'.$num, 3),
+    );
+
+    $form['superhero_twitter_carousel_settings']['superhero_twitter_carousel_controls'] = array(
+        '#type' => 'select',
+        '#title' => 'Controls',
+        '#options' => array(1 => 'Yes', 0 => 'No'),
+        '#default_value' => variable_get('superhero_twitter_carousel_controls_'.$num, 0),
+    );
+    return $form;
+  }
+}
+
+/* Implement hook_block_save. */
+
+function superhero_twitter_block_save($delta = '', $edit = array()) {
+  if (substr($delta, 0, 24) == 'superhero_twitter_block_') {
+    $num = filter_var($delta, FILTER_SANITIZE_NUMBER_INT);
+    variable_set('superhero_twitter_block_consumer_key_' . $num, $edit['superhero_twitter_block_consumer_key']);
+    variable_set('superhero_twitter_block_consumer_secret_' . $num, $edit['superhero_twitter_block_consumer_secret']);
+    variable_set('superhero_twitter_block_access_token_' . $num, $edit['superhero_twitter_block_access_token']);
+    variable_set('superhero_twitter_block_access_token_secret_' . $num, $edit['superhero_twitter_block_access_token_secret']);
+    variable_set('superhero_twitter_block_count_' . $num, $edit['superhero_twitter_block_count']);
+    variable_set('superhero_twitter_block_name_' . $num, $edit['superhero_twitter_block_name']);
+    variable_set('superhero_twitter_carousel_mode_' . $num, $edit['superhero_twitter_carousel_mode']);
+    variable_set('superhero_twitter_carousel_controls_' . $num, $edit['superhero_twitter_carousel_controls']);
+    variable_set('superhero_twitter_carousel_maxslides_' . $num, $edit['superhero_twitter_carousel_maxslides']);
+    variable_set('superhero_twitter_carousel_minslides_' . $num, $edit['superhero_twitter_carousel_minslides']);
+    variable_set('superhero_twitter_block_avatar_' . $num, $edit['superhero_twitter_block_avatar']);
+    //cache_clear_all('superhero_twitter_cache_'.$num,'cache');
+  }
+}
+
+/* Implement hook_block_view. */
+
+function superhero_twitter_block_view($delta) {
+  if (substr($delta, 0, 24) == 'superhero_twitter_block_') {
+    $num = filter_var($delta, FILTER_SANITIZE_NUMBER_INT);
+    return _superhero_twitter_block($num);
+  }
+}
+
+/* Implements hook_theme(). */
+
+function superhero_twitter_theme() {
+  $path = drupal_get_path('module', 'superhero_twitter');
+  return array(
+      'superhero_twitter_block' => array(
+          'template' => 'superhero_twitter',
+          'path' => $path . '/theme',
+          'pattern' => 'twitter__',
+          'preprocess functions' => array(
+              'template_preprocess',
+              'superhero_twitter_preprocess_twitter_block',
+          ),
+          'variables' => array(),
+      )
+  );
+}
+
+function superhero_twitter_preprocess_twitter_block(&$vars) {
+  $vars['block_id'] = drupal_html_id('superhero_twitter_block');
+  $js = array(
+      'superhero_twitter' => array(
+          $vars['block_id'] => $vars['settings'],
+      ),
+  );
+  drupal_add_js($js, 'setting');
+  drupal_add_js(drupal_get_path('module', 'superhero_twitter').'/js/superhero-twitter.js');
+}
+
+/* Helper function to call theme. */
+
+function _superhero_twitter_block($num) {
+  drupal_add_js(libraries_get_path('bxslider') . '/jquery.bxslider.min.js');
+  require_once 'superhero_twitter.inc';
+  $tweets = array();
+  //store cache
+  if ($cached = cache_get('superhero_twitter_cache_' . $num, 'cache')) {
+    $tweets = $cached->data;
+  }
+  //print_r($cached);
+  if (empty($tweets)) {
+    $tweets = superhero_twitter_get_tweets($num);
+    if (!empty($tweets)) {
+      //Cache 60 mins
+      cache_set('superhero_twitter_cache_' . $num, $tweets, 'cache', time() + 60 * 60);
+    }
+  }
+  $settings = array(
+      'name' => variable_get('superhero_twitter_block_name_' . $num),
+      'slideMargin' => 5,
+      'pager' => false,
+      'moveSlides' => 1,
+      'auto' => true,
+      'mode' => variable_get('superhero_twitter_carousel_mode_' . $num, 'vertical'),
+      'controls' => (bool)variable_get('superhero_twitter_carousel_controls_' . $num, 'false'),
+      'minSlides' => (int)variable_get('superhero_twitter_carousel_minslides_' . $num, 1),
+      'maxSlides' => (int)variable_get('superhero_twitter_carousel_maxslides_' . $num, 3),
+      'superhero_twitter_block_avatar' => variable_get('superhero_twitter_block_avatar_' . $num, 'none'),
+      'nextText' => '<i class="fa fa-angle-right"></i>',
+      'prevText' => '<i class="fa fa-angle-left"></i>'
+  );
+  $block = array(
+      'subject' => '',
+      'content' => theme('superhero_twitter_block', array(
+          'tweets' => $tweets,
+          'settings' => $settings)),
+  );
+  return $block;
+}

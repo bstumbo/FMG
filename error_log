@@ -1,0 +1,4 @@
+[20-Dec-2013 03:38:11] PHP Warning:  Invalid argument supplied for foreach() in /home/project/public_html/me/includes/module.inc on line 1079
+[20-Dec-2013 03:39:03] PHP Warning:  Invalid argument supplied for foreach() in /home/project/public_html/me/includes/module.inc on line 1079
+[25-Dec-2013 02:08:51] PHP Parse error:  syntax error, unexpected T_EXIT in /home/project/public_html/me/sites/all/themes/superhero/includes/superhero_scss.php on line 52
+[25-Dec-2013 07:51:06] PHP Fatal error:  [] operator not supported for strings in /home/project/public_html/me/includes/form.inc on line 3603

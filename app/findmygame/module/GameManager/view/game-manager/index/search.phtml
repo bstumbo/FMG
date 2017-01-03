@@ -1,0 +1,42 @@
+<div id="queryresult" class="container">
+   <?php if (isset($_POST['submit'])) { ?>
+   <h1>You Can Watch Your Game At:</h1>
+   <?php foreach ($bars as $bar) :?>
+      <section  id="section-feature" class="section section-feature">
+         <div class="container">
+            <div class="row">
+               <div class="region region-feature-first col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                  <div id="block-block-51" class="block block-block contextual-links-region">
+                     <div class="block-contents" >
+                        <div style="box-sizing: border-box;" class="content sh-block-content">
+                           <p><img alt="" src="<?php if(!null == $bar->getBarimage()){ echo "../../module/GameManager/src/GameManager/Assets/" . $bar->getBarimage();} else { echo "http://placehold.it/283x192"; } ?>" style="height:192px; width:283px" /></p>
+                        </div>
+                     </div>
+                     <div style="clear:both" class="clear-fix"></div>
+                  </div>
+               </div>
+               <div class="region region-feature-second col-xs-6 col-sm-6 col-md-8 col-lg-8">
+                  <div id="block-block-52" class="block block-block contextual-links-region">
+                     <div class="block-contents">
+                        <div class="content sh-block-content">
+                           <h1><a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment> NOT ONLY grace-drops
+            array('controller' => 'index', 'action'=>'viewindi', 'id' => $bar->getId()));?>"><?php print $this->escapeHtml($bar->name);?></a></h1>
+                           <p><?php print $this->escapeHtml($bar->bardescription);?></p>
+                           <!--<p><strong>User Ranking:</strong> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-o"></i></p>-->
+                           <a class="btn btn-primary btn-xs" href="https://www.google.com/maps/dir/<?php echo $bar->getLocation();?>/<?php echo $_POST['Location'];?>
+" target="_blank">Directions</a>
+                           <!--<a class="btn btn-primary btn-xs">Rate</a> -->
+                           <a class="btn btn-primary btn-xs" href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment> NOT ONLY grace-drops
+            array('controller' => 'index', 'action'=>'viewindi', 'id' => $bar->getId()));?>">More Info...</a>
+                        </div>
+                     </div>
+                     <div style="clear:both" class="clear-fix"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+   <?php endforeach; ?>
+   <?php } ?>
+</div>
+
