@@ -18,7 +18,7 @@ return array(
         'module_paths' => array(
             './module',
             './vendor',
-            'GoogleMapsTools' => './vendor/sgoranov/google-maps-tools',
+           'GoogleMapsTools' => './vendor/sgoranov/google-maps-tools',
         ),
         'config_glob_paths' => array(
             'config/autoload/{{,*.}global,{,*.}local}.php',

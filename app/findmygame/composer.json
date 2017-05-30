@@ -10,8 +10,8 @@
     "require": {
         "php": ">=5.5",
         "zendframework/zendframework": "~2.5",
+        "doctrine/doctrine-mongo-odm-module": "0.9.0",
         "zendframework/zftool": "dev-master",
-        "doctrine/doctrine-mongo-odm-module": "dev-master",
         "sgoranov/google-maps-tools": "dev-master"
     }
 }
