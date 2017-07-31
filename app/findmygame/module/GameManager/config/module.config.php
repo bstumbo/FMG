@@ -57,26 +57,19 @@ return array(
                         'options' => array(
                             'route' => '/edit',
                             'defaults' => array(
+                                'controller' => 'BarAdmin',
                                 'action' => 'edit',
                             )
                         ),
                         'may_terminate' => true,
                     ),
-                 'view' => array(
-                        'type' => 'segment',
-                        'options' => array(
-                            'route' => '/view',
-                            'defaults' => array(
-                                'action' => 'view',
-                            )
-                        ),
-                        'may_terminate' => true,
-                    ),
+                 
                  'delete' => array(
                         'type' => 'segment',
                         'options' => array(
                             'route' => '/delete',
                             'defaults' => array(
+                               'controller' => 'BarAdmin',
                                 'action' => 'delete',
                             )
                         ),
@@ -87,6 +80,7 @@ return array(
                         'options' => array(
                             'route' => '/manage',
                             'defaults' => array(
+                               'controller' => 'BarAdmin',
                                 'action' => 'manage',
                             )
                         ),
@@ -102,7 +96,40 @@ return array(
                         ),
                         'may_terminate' => true,
                     ),
-                 'paginatior' => array(
+                 'view' => array(
+                      'type' => 'segment',
+                      'options' => array(
+                          'route' => '/view',
+                          'defaults' => array(
+                              'controller' => 'BarAdmin',
+                              'action' => 'view',
+                          )
+                      ),
+                      'may_terminate' => true,
+                  ),
+                 'addteam' => array(
+                      'type' => 'segment',
+                      'options' => array(
+                          'route' => '/addteam',
+                          'defaults' => array(
+                              'controller' => 'TeamAdmin',
+                              'action' => 'add',
+                          )
+                      ),
+                      'may_terminate' => true,
+                  ),
+                 'viewteam' => array(
+                      'type' => 'segment',
+                      'options' => array(
+                          'route' => '/viewteam',
+                          'defaults' => array(
+                              'controller' => 'TeamAdmin',
+                              'action' => 'view',
+                          )
+                      ),
+                      'may_terminate' => true,
+                  ),
+                   'paginatior' => array(
                         'type' => 'Segment',
                         'options' => array(
                             'route' => '/[page/:page]',
@@ -113,6 +140,7 @@ return array(
                     ),
                 ),
             ),
+
         ),
     ),
     'service_manager' => array(
@@ -120,7 +148,9 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'GameManager\Controller\Index' => 'GameManager\Controller\IndexController'
+            'GameManager\Controller\Index' => 'GameManager\Controller\IndexController',
+            'GameManager\Controller\BarAdmin' => 'GameManager\Controller\BarAdminController',
+            'GameManager\Controller\TeamAdmin' => 'GameManager\Controller\TeamAdminController',
         ),
     ),
     'view_manager' => array(

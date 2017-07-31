@@ -9,8 +9,11 @@ return array(
     'modules' => array(
         'Application',
         'GameManager',
+        'ZfcBase',
+        'ZfcUser',
         'DoctrineModule',
         'DoctrineMongoODMModule',
+        'ZfcUserDoctrineMongoODM',
         'GoogleMapsTools',
         
     ),
@@ -19,6 +22,7 @@ return array(
             './module',
             './vendor',
            'GoogleMapsTools' => './vendor/sgoranov/google-maps-tools',
+           'ZfcUserDoctrineMongoODM' => './vendor/ZfUserDoctrineMongoODM',
         ),
         'config_glob_paths' => array(
             'config/autoload/{{,*.}global,{,*.}local}.php',

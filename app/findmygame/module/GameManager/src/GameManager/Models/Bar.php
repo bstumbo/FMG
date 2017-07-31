@@ -107,6 +107,7 @@ class Bar
      */
     public $barimage;
      
+     
     
     /**
      * 

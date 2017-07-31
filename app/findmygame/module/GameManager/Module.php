@@ -1,6 +1,7 @@
 <?php
 namespace GameManager;
 
+
 class Module
 {
     public function getConfig()

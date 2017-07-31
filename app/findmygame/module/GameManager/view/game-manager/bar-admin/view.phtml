@@ -18,9 +18,9 @@ echo '<h1>Bars in Database</h1>';
     <td><?php echo $this->escapeHtml($bar->getId());?></td>
     <td>
         <a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment> NOT ONLY grace-drops
-            array('controller' => 'index', 'action'=>'edit', 'id' => $bar->getId()));?>">Edit</a>
+            array('controller' => 'baradmin', 'action'=>'edit', 'id' => $bar->getId()));?>">Edit</a>
         <a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment>
-            array('controller' => 'index', 'action'=>'delete', 'id' => $bar->getId()));?>">Delete</a>
+            array('controller' => 'baradmin', 'action'=>'delete', 'id' => $bar->getId()));?>">Delete</a>
     </td>
 </tr>
 <?php endforeach; ?>

@@ -1,0 +1,27 @@
+<?php
+echo '<h1>Teams in Database</h1>';
+
+?>
+
+<p>
+    <a href="<?php echo $this->url('findmygame/default', array('controller' => 'teamadmin', 'action'=>'addteam'));?>">Add New Team</a>
+</p>
+
+<table class="table">
+<tr>
+    <th>Name</th>
+    <th>League</th>
+</tr>
+<?php foreach ($teams as $team) : ?>
+<tr>
+    <td><?php echo $this->escapeHtml($team->getTeamname());?></td>
+    <td><?php echo $this->escapeHtml($team->getLeague());?></td>
+    <td>
+        <a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment> NOT ONLY grace-drops
+            array('controller' => 'teamadmin', 'action'=>'edit', 'id' => $team->getTeamId()));?>">Edit</a>
+        <a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment>
+            array('controller' => 'teamadmin', 'action'=>'delete', 'id' => $team->getTeamId()));?>">Delete</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>
