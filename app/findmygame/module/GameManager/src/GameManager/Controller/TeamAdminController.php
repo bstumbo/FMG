@@ -44,7 +44,54 @@ public function viewAction()
 	 return new ViewModel(array('teams' => $teams));
 	   }
     }
-
+	
+public function editAction()
+    
+    {
+	   // Redirect if user isn't logged in
+	   
+	    if (!$this->zfcUserAuthentication()->hasIdentity()) {
+		return $this->redirect()->toRoute('zfcuser/login');
+	   }
+	    
+        $id = $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('findmygame', array(
+                'action' => 'manage'
+            ));
+        }
+        // Get the Team with the specified id.  An exception is thrown
+        // if it cannot be found, in which case go to the index page.
+		
+        $dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
+		$repository = $dm->getRepository('GameManager\Models\Team');
+		$team = $repository->find($id);
+        $builder = new AnnotationBuilder($dm);
+        $form = $builder->createForm($team);
+		$form->setAttribute('enctype','multipart/form-data');
+        $form->setHydrator(new DoctrineObjectHydrator($dm, 'GameManager\Models\TEam'));
+		$form->bind($team);
+       
+		$request = $this->getRequest();
+        
+		if ($request->isPost()){
+		
+			$form->bind($team);
+			$form->setData($request->getPost());
+			if ($form->isValid()){
+               $dm->persist($team);
+               $dm->flush();
+            }
+            
+			return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'TeamAdmin', 'action' => 'view'));
+			}
+            
+         return array(
+            'id' => $id,
+            'form' => $form,
+        );
+        
+	}
 
 public function addteamAction()
     {
@@ -65,9 +112,51 @@ public function addteamAction()
                $dm->flush();
             }
             
-             return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'BarAdmin', 'action' => 'view'));
+             return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'TeamAdmin', 'action' => 'view'));
         }
          
         return array('form'=>$form);
+    }
+
+public function deleteAction()
+    {
+	   
+	   // Redirect if user isn't logged in
+	   
+	   if (!$this->zfcUserAuthentication()->hasIdentity()) {
+		return $this->redirect()->toRoute('zfcuser/login');
+	   }
+	   
+		
+		$id = $this->params()->fromRoute('id', 0);
+        if (!$id) {
+            return $this->redirect()->toRoute('findmygame', array(
+                'action' => 'manage'
+            ));
+        }
+		
+		$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
+		
+		$repository = $dm->getRepository('GameManager\Models\Team');
+		$team = $repository->find($id);
+		
+		 $request = $this->getRequest();
+        if ($request->isPost()) {
+            $del = $request->getPost('del', 'No');
+            if ($del == 'Yes') {
+                $id = $request->getPost('id');
+				
+				$team = $repository->find($id);
+				$dm->remove($team);
+				$dm->flush();
+            }
+            // Redirect to list of albums
+           return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'TeamAdmin', 'action' => 'view'));
+        }
+        return array(
+            'id'    => $id,
+            'team' => $team,
+        );	
+		
     }
 }

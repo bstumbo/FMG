@@ -1,0 +1,22 @@
+<?php
+echo '<h1>Delete a Team</h1>';
+
+?>
+
+<p>Are you sure that you want to delete
+    '<?php echo $this->escapeHtml($team->getTeamid()); ?>' by ID
+    '<?php echo $this->escapeHtml($team->getTeamname()); ?>'?
+</p>
+<?php
+$url = $this->url('findmygame/default', array(
+    'action' => 'delete',
+    'id'     => $this->id,
+));
+?>
+<form action="<?php echo $url; ?>" method="post">
+<div>
+    <input type="hidden" name="id" value="<?php echo $team->getTeamid(); ?>" />
+    <input type="submit" name="del" value="Yes" />
+    <input type="submit" name="del" value="No" />
+</div>
+</form>

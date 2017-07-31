@@ -57,7 +57,7 @@ class BarAdminController extends AbstractActionController {
 				$dm->flush();
             }
             // Redirect to list of albums
-           return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'Index', 'action' => 'view'));
+           return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'BarAdmin', 'action' => 'view'));
         }
         return array(
             'id'    => $id,
