@@ -129,6 +129,39 @@ return array(
                       ),
                       'may_terminate' => true,
                   ),
+                 'deleteteam' => array(
+                      'type' => 'segment',
+                      'options' => array(
+                          'route' => '/deleteteam',
+                          'defaults' => array(
+                              'controller' => 'TeamAdmin',
+                              'action' => 'deleteteam',
+                          )
+                      ),
+                      'may_terminate' => true,
+                  ),
+                 'bulkupload' => array(
+                      'type' => 'segment',
+                      'options' => array(
+                          'route' => '/bulkupload',
+                          'defaults' => array(
+                              'controller' => 'TeamAdmin',
+                              'action' => 'bulkupload',
+                          )
+                      ),
+                      'may_terminate' => true,
+                  ),
+                 'bulkuploadteams' => array(
+                      'type' => 'segment',
+                      'options' => array(
+                          'route' => '/bulkuploadteams',
+                          'defaults' => array(
+                              'controller' => 'TeamAdmin',
+                              'action' => 'bulkuploadteams',
+                          )
+                      ),
+                      'may_terminate' => true,
+                  ),
                    'paginatior' => array(
                         'type' => 'Segment',
                         'options' => array(

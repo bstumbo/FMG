@@ -1,0 +1,18 @@
+<?php
+echo '<h1>Bulk Upload Teams</h1>';
+
+?>
+
+<?php
+$url = $this->url('findmygame/default', array(
+    'controller' => 'teamadmin',
+    'action' => 'bulkuploadteams',
+));
+?>
+<form action="<?php echo $url; ?>" method="post">
+<div>
+    <input type="file" name="csv" />
+    <input type="submit" name="submit" value="Submit" />
+    
+</div>
+</form>

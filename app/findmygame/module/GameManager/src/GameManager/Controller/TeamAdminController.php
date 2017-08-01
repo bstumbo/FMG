@@ -117,8 +117,34 @@ public function addteamAction()
          
         return array('form'=>$form);
     }
+	
 
-public function deleteAction()
+
+public function bulkuploadAction() {
+	return new ViewModel();
+}
+
+
+public function bulkuploadteamsAction($file) {
+	
+	$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
+	
+	$csv = array_map('str_getcsv', file($file));
+	
+	foreach ($csv as $file) {
+		$team = new Team();
+		$team->setTeamname($file[0]);
+		$team->setLeague($file[1]);
+		$team->setSport($file[2]);
+		$dm->persist($team);
+		$dm->flush();
+	}
+	
+	return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'TeamAdmin', 'action' => 'view'));
+
+}
+
+public function deleteteamAction()
     {
 	   
 	   // Redirect if user isn't logged in

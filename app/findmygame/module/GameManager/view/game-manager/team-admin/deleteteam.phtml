@@ -9,7 +9,8 @@ echo '<h1>Delete a Team</h1>';
 </p>
 <?php
 $url = $this->url('findmygame/default', array(
-    'action' => 'delete',
+    'controller' => 'TeamAdmin',
+    'action' => 'deleteteam',
     'id'     => $this->id,
 ));
 ?>

@@ -3,9 +3,14 @@ echo '<h1>Teams in Database</h1>';
 
 ?>
 
-<p>
-    <a href="<?php echo $this->url('findmygame/default', array('controller' => 'teamadmin', 'action'=>'addteam'));?>">Add New Team</a>
-</p>
+<div>
+    <div style="float: left;">
+        <a href="<?php echo $this->url('findmygame/default', array('controller' => 'teamadmin', 'action'=>'addteam'));?>">Add New Team</a>
+    </div>
+    <div style="float: left; margin-left: 10px;">
+        <a href="<?php echo $this->url('findmygame/default', array('controller' => 'teamadmin', 'action'=>'bulkupload'));?>">Bulk Upload Teams</a>
+    </div>
+</div>
 
 <table class="table">
 <tr>
@@ -20,7 +25,7 @@ echo '<h1>Teams in Database</h1>';
         <a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment> NOT ONLY grace-drops
             array('controller' => 'teamadmin', 'action'=>'edit', 'id' => $team->getTeamId()));?>">Edit</a>
         <a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment>
-            array('controller' => 'teamadmin', 'action'=>'delete', 'id' => $team->getTeamId()));?>">Delete</a>
+            array('controller' => 'teamadmin', 'action'=>'deleteteam', 'id' => $team->getTeamId()));?>">Delete</a>
     </td>
 </tr>
 <?php endforeach; ?>

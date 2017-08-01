@@ -9,6 +9,7 @@ echo '<h1>Delete a Bar</h1>';
 </p>
 <?php
 $url = $this->url('findmygame/default', array(
+    'controller' => 'BarAdmin',
     'action' => 'delete',
     'id'     => $this->id,
 ));
