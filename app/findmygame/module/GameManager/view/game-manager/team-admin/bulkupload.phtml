@@ -9,9 +9,9 @@ $url = $this->url('findmygame/default', array(
     'action' => 'bulkuploadteams',
 ));
 ?>
-<form action="<?php echo $url; ?>" method="post">
+<form enctype="multipart/form-data" id="teams" name="teams" action="<?php echo $url; ?>" method="post">
 <div>
-    <input type="file" name="csv" />
+    <input id="csv" type="file" name="csv"/>
     <input type="submit" name="submit" value="Submit" />
     
 </div>

@@ -3,10 +3,12 @@
 namespace GameManager\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\File\Transfer\Adapter\Http;
 use Zend\View\Model\ViewModel;
 use Zend\Form\Annotation\AnnotationBuilder;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineObjectHydrator;
 use Zend\Form\Element;
+use Zend\Form;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use DoctrineODMModule\Stdlib\Hydrator\DoctrineEntity;
 use DoctrineODMModule\Form\Annotation\AnnotationBuilder as DoctrineAnnotationBuilder;
@@ -125,23 +127,39 @@ public function bulkuploadAction() {
 }
 
 
-public function bulkuploadteamsAction($file) {
+public function bulkuploadteamsAction() {
 	
 	$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
 	
-	$csv = array_map('str_getcsv', file($file));
-	
-	foreach ($csv as $file) {
-		$team = new Team();
-		$team->setTeamname($file[0]);
-		$team->setLeague($file[1]);
-		$team->setSport($file[2]);
-		$dm->persist($team);
-		$dm->flush();
+	$request = $this->getRequest();
+	if ($request->isPost()){
+		
+	 $adapter = new Http();
+	 $adapter->setDestination('public/test');
+	 
+	 if (!$adapter->receive()) {
+		$messages = $adapter->getMessages();
+		echo implode("\n", $messages);	
 	}
 	
-	return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'TeamAdmin', 'action' => 'view'));
+	$file = $adapter->getFileName('csv');
+	$file_contents = file_get_contents($file);
 
+	$csv = explode(',', $file_contents);
+	
+	var_dump($csv);
+		/*foreach ($csv as $teams) {
+			$team = new Team();
+			$team->setTeamname($teams[0]);
+			$team->setLeague($teams[1]);
+			$team->setSport($teams[2]);
+			$dm->persist($team);
+			$dm->flush();
+		}*/
+	}
+	
+	#return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'TeamAdmin', 'action' => 'view'));
+	return new ViewModel(array('string' => $csv));
 }
 
 public function deleteteamAction()
