@@ -53,11 +53,11 @@ class GameManagerModelsTeamHydrator implements HydratorInterface
             $hydratedData['teamname'] = $return;
         }
 
-        /** @Field(type="int") */
+        /** @Field(type="string") */
         if (isset($data['sport']) || (! empty($this->class->fieldMappings['sport']['nullable']) && array_key_exists('sport', $data))) {
             $value = $data['sport'];
             if ($value !== null) {
-                $return = (int) $value;
+                $return = (string) $value;
             } else {
                 $return = null;
             }
@@ -65,11 +65,11 @@ class GameManagerModelsTeamHydrator implements HydratorInterface
             $hydratedData['sport'] = $return;
         }
 
-        /** @Field(type="int") */
+        /** @Field(type="string") */
         if (isset($data['league']) || (! empty($this->class->fieldMappings['league']['nullable']) && array_key_exists('league', $data))) {
             $value = $data['league'];
             if ($value !== null) {
-                $return = (int) $value;
+                $return = (string) $value;
             } else {
                 $return = null;
             }

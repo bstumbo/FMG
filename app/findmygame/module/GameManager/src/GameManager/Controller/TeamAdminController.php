@@ -144,22 +144,20 @@ public function bulkuploadteamsAction() {
 	
 	$file = $adapter->getFileName('csv');
 	$file_contents = file_get_contents($file);
-
-	$csv = explode(',', $file_contents);
+	$csv = array_map('str_getcsv', file($file));
 	
-	var_dump($csv);
-		/*foreach ($csv as $teams) {
+		foreach ($csv as $teams) {
 			$team = new Team();
 			$team->setTeamname($teams[0]);
 			$team->setLeague($teams[1]);
 			$team->setSport($teams[2]);
 			$dm->persist($team);
 			$dm->flush();
-		}*/
+		}
 	}
 	
-	#return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'TeamAdmin', 'action' => 'view'));
-	return new ViewModel(array('string' => $csv));
+	return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'TeamAdmin', 'action' => 'view'));
+	#return new ViewModel(array('string' => $csv));
 }
 
 public function deleteteamAction()
