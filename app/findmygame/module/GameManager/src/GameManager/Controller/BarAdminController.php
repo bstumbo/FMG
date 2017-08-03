@@ -94,13 +94,22 @@ class BarAdminController extends AbstractActionController {
 		//Add Affiliations
 		$affs = $dm->getRepository('GameManager\Models\Team')->findAll();
 		$affsOptions = [null => ''];
+		$leagueOptions = [null => ''];
+		$sportOptions = [null => ''];
 		foreach ($affs as $aff) {
 			$affOptions[$aff->getTeamid()] = $aff->getTeamname();
+			$leagueOptions[$aff->getLeague()] = $aff->getLeague();
+			$sportOptions[$aff->getSport()] = $aff->getSport();
 		}
+		
+		$uniLeagueOptions = array_unique($leagueOptions);
+		$uniSportOptions = array_unique($sportOptions);
 		
 		//End add Affiliations
         $form->setHydrator(new DoctrineObjectHydrator($dm, 'GameManager\Models\Bar'));
         $form->get('affiliations')->setValueOptions($affOptions);
+	   $form->get('sports')->setValueOptions($uniSportOptions);
+	   $form->get('leagues')->setValueOptions($uniLeagueOptions);
 		
 		$form->bind($bar);
        
@@ -209,12 +218,22 @@ class BarAdminController extends AbstractActionController {
 		//Add Affiliations
 		$affs = $dm->getRepository('GameManager\Models\Team')->findAll();
 		$affsOptions = [null => ''];
+		$leagueOptions = [null => ''];
+		$sportOptions = [null => ''];
 		foreach ($affs as $aff) {
 			$affOptions[$aff->getTeamid()] = $aff->getTeamname();
+			$leagueOptions[$aff->getLeague()] = $aff->getLeague();
+			$sportOptions[$aff->getSport()] = $aff->getSport();
 		}
+		
+		$uniLeagueOptions = array_unique($leagueOptions);
+		$uniSportOptions = array_unique($sportOptions);
+		
 		//End add Affiliations
         $form->setHydrator(new DoctrineObjectHydrator($dm, 'GameManager\Models\Bar'));
         $form->get('affiliations')->setValueOptions($affOptions);
+	   $form->get('sports')->setValueOptions($uniSportOptions);
+	   $form->get('leagues')->setValueOptions($uniLeagueOptions);
 		 
         $request = $this->getRequest();
 		

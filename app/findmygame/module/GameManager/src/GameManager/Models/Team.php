@@ -38,8 +38,6 @@ use Zend\Form\Annotation;
      * 
      * @Annotation\Type("Zend\Form\Element\Select")
      * @Annotation\Required(true)
-     *  * @Annotation\Options({"label":"Sport:",
-     *                       "value_options" : {"0":"Baseball","1":"Soccer",}})
      * @ODM\Field(type="string")
      
      */
@@ -51,8 +49,6 @@ use Zend\Form\Annotation;
      * 
      * @Annotation\Type("Zend\Form\Element\Select")
      * @Annotation\Required(true)
-     *  * @Annotation\Options({"label":"League:",
-     *                       "value_options" : {"0":"MLB","1":"MLS","2":"Euro Cup",}})
      * @ODM\Field(type="string")
      
      */

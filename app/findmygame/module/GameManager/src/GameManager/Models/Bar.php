@@ -170,8 +170,7 @@ class Bar
      /**
      * @Annotation\Type("Zend\Form\Element\Select")
      * @Annotation\Required(false)
-     * @Annotation\Options({"label":"Leagues:",
-     *                         "value_options" : {"0":"MLB","1":"MLS","2":"Euro Cup",}})
+     * @Annotation\Options({"label":"Leagues:"})
      * @Annotation\Attributes({"multiple":"multiple"})
      * @ODM\Field(type="collection")
      
@@ -181,8 +180,7 @@ class Bar
      /**
      * @Annotation\Type("Zend\Form\Element\Select")
      * @Annotation\Required(false)
-     * @Annotation\Options({"label":"Sports:",
-     *                        "value_options" : {"0":"Baseball","1":"Soccer",}})
+    * @Annotation\Options({"label":"Sports:"})
      * @Annotation\Attributes({"multiple":"multiple"})
      * @ODM\Field(type="collection")
      

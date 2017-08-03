@@ -50,8 +50,21 @@ class IndexController extends AbstractActionController
 
 		//Add Affiliations
 		$affs = $dm->getRepository('GameManager\Models\Team')->findAll();
+		
+		$leagueOptions = [null => ''];
+		$sportOptions = [null => ''];
+		foreach ($affs as $aff) {
+			$affOptions[$aff->getTeamid()] = $aff->getTeamname();
+			$leagueOptions[$aff->getLeague()] = $aff->getLeague();
+			$sportOptions[$aff->getSport()] = $aff->getSport();
+		}
+		
+		$uniLeagueOptions = array_unique($leagueOptions);
+		$uniSportOptions = array_unique($sportOptions);
+		
+		
 
-         return new ViewModel(array('affs' => $affs));
+         return new ViewModel(array('affs' => $affs, 'leagues' => $uniLeagueOptions, 'sports' => $uniSportOptions));
     }
 
    	
