@@ -135,7 +135,7 @@ public function bulkuploadteamsAction() {
 	if ($request->isPost()){
 		
 	 $adapter = new Http();
-	 $adapter->setDestination('public/test');
+	 $adapter->setDestination('public/teams');
 	 
 	 if (!$adapter->receive()) {
 		$messages = $adapter->getMessages();
