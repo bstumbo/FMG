@@ -159,7 +159,7 @@ class Bar
      * @Annotation\Required(false)
      * @Annotation\Options({"label":"Affliations:",
      *                        })
-     * @Annotation\Attributes({"multiple":"multiple"})
+     * @Annotation\Attributes({"multiple":"multiple", "class":"affiliations"})
      * @ODM\Field(type="collection")
      
      */
@@ -171,7 +171,7 @@ class Bar
      * @Annotation\Type("Zend\Form\Element\Select")
      * @Annotation\Required(false)
      * @Annotation\Options({"label":"Leagues:"})
-     * @Annotation\Attributes({"multiple":"multiple"})
+     * @Annotation\Attributes({"multiple":"multiple", "class":"leagues"})
      * @ODM\Field(type="collection")
      
      */
@@ -181,7 +181,7 @@ class Bar
      * @Annotation\Type("Zend\Form\Element\Select")
      * @Annotation\Required(false)
      * @Annotation\Options({"label":"Sports:"})
-     * @Annotation\Attributes({"multiple":"multiple"})
+     * @Annotation\Attributes({"multiple":"multiple", "class":"sports"})
      * @ODM\Field(type="collection")
      
      */

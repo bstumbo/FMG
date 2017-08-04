@@ -10,12 +10,24 @@ echo '<h1>Bars in Database</h1>';
 <table class="table">
 <tr>
     <th>Name</th>
-    <th>Bar ID</th>
+    <th>Image</th>
+    <th>Affiliations</th>
+    <th>Actions</th>
 </tr>
 <?php foreach ($bars as $bar) : ?>
 <tr>
     <td><?php echo $this->escapeHtml($bar->getName());?></td>
-    <td><?php echo $this->escapeHtml($bar->getId());?></td>
+    <td><img alt="" src="<?php if(!null == $bar->getBarimage()){ echo "../../../module/GameManager/src/GameManager/Assets/" . $bar->getBarimage();} else { echo "http://placehold.it/283x192"; } ?>" style="height:192px; width:283px" /></td>
+    <td><?php
+        $affs = array("Affilations: " => $bar->getAffiliations(), "Leagues: " => $bar->getLeagues(), "Sports :" => $bar->getSports());
+        foreach ($affs as $i => $aff){
+            echo "<strong>" . $i . "</strong>";
+            foreach ($aff as $name){
+            echo $name . "<br>";
+            }
+            echo "<br>";
+        }?>
+    </td>
     <td>
         <a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment> NOT ONLY grace-drops
             array('controller' => 'baradmin', 'action'=>'edit', 'id' => $bar->getId()));?>">Edit</a>

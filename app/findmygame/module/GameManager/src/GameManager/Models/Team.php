@@ -79,5 +79,19 @@ use Zend\Form\Annotation;
      public function getLeague() {return $this->league; }
      public function setLeague($league) { $this->league = $league; }
      
+     /*
+      * Other public fucntions
+      */
+     
+     public function getTeamnameID($id) {
+         $dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
+         $repository = $dm->getRepository('GameManager\Models\Team');
+         $team = $repository->find($id);
+         $name = $team->getTeamname();
+         
+         return $name;
+         
+      }
+     
      
  }
