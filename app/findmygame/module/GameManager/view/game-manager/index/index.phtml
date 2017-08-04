@@ -24,24 +24,24 @@ $(document).ready(function() {
     <div id="team" style="max-width: 700px; width: 100%; margin-top: 10px; margin-bottom: 25px;">
 	    <select style="max-width: 700px; width: 100%;" name="affiliations" class="affiliations">
       <option value="NULL">SELECT A TEAM</option>
-		<?php foreach ($affs as $aff) :?>
-				<option value="<?php print $aff->getTeamid() ;?>"><?php print $aff->getTeamname();?></option> 
+		<?php foreach ($affs as $i => $aff) :?>
+				<option value="<?php print $i ;?>"><?php print $aff;?></option> 
 		<?php endforeach; ?>
     </select>
     </div>
 	<div class="hidden" id="sport" style="max-width: 700px; width: 100%; margin-top: 10px; margin-bottom: 25px;">
 	<select  style="max-width: 700px; width: 100%; text-align: center;" name="sports">
       <option value="NULL">SELECT A SPORT</option>
-      <?php foreach ($sports as $sport) :?>
-				<option value="<?php print $sport ;?>"><?php print $sport;?></option> 
+      <?php foreach ($sports as $i => $sport) :?>
+				<option value="<?php print $i ;?>"><?php print $sport;?></option> 
 			<?php endforeach; ?>
     </select>
 	</div>
 	<div class="hidden" id="league" style="max-width: 700px; width: 100%; margin-top: 10px; margin-bottom: 25px;">
      <select style="max-width: 700px; width: 100%; text-align: center;" name="leagues" >
       <option value="NULL">SELECT A LEAGUE</option>
-      <?php foreach ($leagues as $league) :?>
-				<option value="<?php print $league ;?>"><?php print $league;?></option> 
+      <?php foreach ($leagues as $i => $league) :?>
+				<option value="<?php print $i ;?>"><?php print $league;?></option> 
 			<?php endforeach; ?>
     </select>
 	</div>

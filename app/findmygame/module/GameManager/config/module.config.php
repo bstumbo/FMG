@@ -182,8 +182,9 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'GameManager\Controller\Index' => 'GameManager\Controller\IndexController',
-            'GameManager\Controller\BarAdmin' => 'GameManager\Controller\BarAdminController',
-            'GameManager\Controller\TeamAdmin' => 'GameManager\Controller\TeamAdminController',
+            'GameManager\Controller\BarAdmin' => 'GameManager\Controller\Admin\BarAdminController',
+            'GameManager\Controller\TeamAdmin' => 'GameManager\Controller\Admin\TeamAdminController',
+            'GameManager\Controller\Services\AffiliationsRetrieve' => 'GameManager\Controller\Services\AffiliationsRetrieve',
         ),
     ),
     'view_manager' => array(

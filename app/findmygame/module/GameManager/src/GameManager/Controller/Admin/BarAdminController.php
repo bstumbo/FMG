@@ -1,6 +1,6 @@
 <?php
 
-namespace GameManager\Controller;
+namespace GameManager\Controller\Admin;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -20,7 +20,7 @@ use GameManager\Tables\BarTable;
 use Zend\Paginator;
 use Zend\Validator\File\Size;
 use Zend\Http\PhpEnvironment\Request;
-#use ZfcUser\View\Helper\ZfcUserIdentity;
+use GameManager\Controller\Services\AffiliationsRetrieve;
 
 class BarAdminController extends AbstractActionController {
 	
@@ -67,6 +67,7 @@ class BarAdminController extends AbstractActionController {
     }
 	
    
+    
     public function editAction()
     
     {
@@ -85,31 +86,25 @@ class BarAdminController extends AbstractActionController {
         // Get the Bar with the specified id.  An exception is thrown
         // if it cannot be found, in which case go to the index page.
 		
-        $dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
+		$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
 		$repository = $dm->getRepository('GameManager\Models\Bar');
 		$bar = $repository->find($id);
-        $builder = new AnnotationBuilder($dm);
-        $form = $builder->createForm($bar);
+		$builder = new AnnotationBuilder($dm);
+		$form = $builder->createForm($bar);
 		$form->setAttribute('enctype','multipart/form-data');
-		//Add Affiliations
-		$affs = $dm->getRepository('GameManager\Models\Team')->findAll();
-		$affsOptions = [null => ''];
-		$leagueOptions = [null => ''];
-		$sportOptions = [null => ''];
-		foreach ($affs as $aff) {
-			$affOptions[$aff->getTeamid()] = $aff->getTeamname();
-			$leagueOptions[$aff->getLeague()] = $aff->getLeague();
-			$sportOptions[$aff->getSport()] = $aff->getSport();
-		}
 		
-		$uniLeagueOptions = array_unique($leagueOptions);
-		$uniSportOptions = array_unique($sportOptions);
+		/*Add Affiliations, Sports, Leagues to form
+		 * Utilizes AffiliationsRetrieve() from GameManager/Services/Affiliations
+		 */
 		
-		//End add Affiliations
-        $form->setHydrator(new DoctrineObjectHydrator($dm, 'GameManager\Models\Bar'));
-        $form->get('affiliations')->setValueOptions($affOptions);
-	   $form->get('sports')->setValueOptions($uniSportOptions);
-	   $form->get('leagues')->setValueOptions($uniLeagueOptions);
+		$affiliations = new AffiliationsRetrieve();
+		$affarray = $affiliations->retrieveAff($dm);
+		
+		
+		$form->setHydrator(new DoctrineObjectHydrator($dm, 'GameManager\Models\Bar'));
+		$form->get('affiliations')->setValueOptions($affarray[0]);
+		$form->get('sports')->setValueOptions($affarray[2]);
+		$form->get('leagues')->setValueOptions($affarray[1]);
 		
 		$form->bind($bar);
        
@@ -208,39 +203,31 @@ class BarAdminController extends AbstractActionController {
 		return $this->redirect()->toRoute('zfcuser/login');
 	   }
         
-        $dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
+		$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
         
-        $bar = new Bar();
-        $builder = new AnnotationBuilder($dm);
-	    $form = $builder->createForm($bar);
+		$bar = new Bar();
+		$builder = new AnnotationBuilder($dm);
+		$form = $builder->createForm($bar);
 		$form->setAttribute('enctype','multipart/form-data');
 		
-		//Add Affiliations
-		$affs = $dm->getRepository('GameManager\Models\Team')->findAll();
-		$affsOptions = [null => ''];
-		$leagueOptions = [null => ''];
-		$sportOptions = [null => ''];
-		foreach ($affs as $aff) {
-			$affOptions[$aff->getTeamid()] = $aff->getTeamname();
-			$leagueOptions[$aff->getLeague()] = $aff->getLeague();
-			$sportOptions[$aff->getSport()] = $aff->getSport();
-		}
+		/*Add Affiliations, Sports, Leagues to form
+		 * Utilizes AffiliationsRetrieve() from GameManager/Services/Affiliations
+		 */
 		
-		$uniLeagueOptions = array_unique($leagueOptions);
-		$uniSportOptions = array_unique($sportOptions);
+		$affiliations = new AffiliationsRetrieve();
+		$affarray = $affiliations->retrieveAff($dm);
 		
-		//End add Affiliations
-        $form->setHydrator(new DoctrineObjectHydrator($dm, 'GameManager\Models\Bar'));
-        $form->get('affiliations')->setValueOptions($affOptions);
-	   $form->get('sports')->setValueOptions($uniSportOptions);
-	   $form->get('leagues')->setValueOptions($uniLeagueOptions);
+		$form->setHydrator(new DoctrineObjectHydrator($dm, 'GameManager\Models\Bar'));
+		$form->get('affiliations')->setValueOptions($affarray[0]);
+		$form->get('sports')->setValueOptions($affarray[2]);
+		$form->get('leagues')->setValueOptions($affarray[1]);
 		 
-        $request = $this->getRequest();
+		$request = $this->getRequest();
 		
         if ($request->isPost()){
 		 //Handling image upload
 		$File = $this->params()->fromFiles('barimage');
-        $data1 =  $File['tmp_name']. '_' .$File['name']; //FILE...
+		$data1 =  $File['tmp_name']. '_' .$File['name']; //FILE...
 		$data2 = substr($data1, 5);
 		//Getting offical location with Google Maps
 		$address = $_POST['location'];

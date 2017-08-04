@@ -180,7 +180,7 @@ class Bar
      /**
      * @Annotation\Type("Zend\Form\Element\Select")
      * @Annotation\Required(false)
-    * @Annotation\Options({"label":"Sports:"})
+     * @Annotation\Options({"label":"Sports:"})
      * @Annotation\Attributes({"multiple":"multiple"})
      * @ODM\Field(type="collection")
      

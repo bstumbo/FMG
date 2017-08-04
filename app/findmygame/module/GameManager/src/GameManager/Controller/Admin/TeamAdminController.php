@@ -1,6 +1,6 @@
 <?php
 
-namespace GameManager\Controller;
+namespace GameManager\Controller\Admin;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\File\Transfer\Adapter\Http;
@@ -22,6 +22,8 @@ use GameManager\Tables\BarTable;
 use Zend\Paginator;
 use Zend\Validator\File\Size;
 use Zend\Http\PhpEnvironment\Request;
+use DoctrineModule\Validator\NoObjectExists;
+use GameManager\Controller\Services\AffiliationsRetrieve;
 
 class TeamAdminController extends AbstractActionController {
 
@@ -69,9 +71,21 @@ public function editAction()
 		$repository = $dm->getRepository('GameManager\Models\Team');
 		$team = $repository->find($id);
         $builder = new AnnotationBuilder($dm);
+		
+		/*
+		 * Get all sports and leagues for form selection
+		 * Utilizes AffiliationsRetrieve() in GameManager/Services/Affiliations
+		 */
+		
+		$affiliations = new AffiliationsRetrieve();
+		$affarray = $affiliations->retrieveAff($dm);
+		
+		
         $form = $builder->createForm($team);
 		$form->setAttribute('enctype','multipart/form-data');
-        $form->setHydrator(new DoctrineObjectHydrator($dm, 'GameManager\Models\TEam'));
+        $form->setHydrator(new DoctrineObjectHydrator($dm, 'GameManager\Models\Team'));
+		$form->get('sport')->setValueOptions($affarray[2]);
+		$form->get('league')->setValueOptions($affarray[1]);
 		$form->bind($team);
        
 		$request = $this->getRequest();
@@ -103,16 +117,38 @@ public function addteamAction()
         $team = new Team();
         $builder = new AnnotationBuilder($dm);
         $form = $builder->createForm($team);
+		
+		/*
+		 * Get all sports and leagues for form selection
+		 * Utilizes AffiliationsRetrieve() in GameManager/Services/Affiliations
+		 */
+		
+		$affiliations = new AffiliationsRetrieve();
+		$affarray = $affiliations->retrieveAff($dm);
+		
         $form->setHydrator(new DoctrineObjectHydrator($dm, 'GameManager\Models\Team'));
+		$form->get('sport')->setValueOptions($affarray[2]);
+		$form->get('league')->setValueOptions($affarray[1]);
          
         $request = $this->getRequest();
+		
         if ($request->isPost()){
+			
+			$validator = new NoObjectExists(
+				array('object_manager' => $dm,
+					  'object_repository' => $dm->getRepository('GameManager\Models\Team'),
+					  'fields' => ['teamname'])
+				);
+			
             $form->bind($team);
             $form->setData($request->getPost());
-            if ($form->isValid()){
+            if ($form->isValid() && $validator->isValid($team->teamname)){
                $dm->persist($team);
                $dm->flush();
-            }
+            } else {
+				$messages = $validator->getMessages();
+				 echo implode("\n", $messages);	
+			}
             
              return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'TeamAdmin', 'action' => 'view'));
         }
@@ -127,6 +163,8 @@ public function bulkuploadAction() {
 }
 
 
+
+
 public function bulkuploadteamsAction() {
 	
 	$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
@@ -134,31 +172,54 @@ public function bulkuploadteamsAction() {
 	$request = $this->getRequest();
 	if ($request->isPost()){
 		
-	 $adapter = new Http();
-	 $adapter->setDestination('public/teams');
-	 
-	 if (!$adapter->receive()) {
-		$messages = $adapter->getMessages();
-		echo implode("\n", $messages);	
-	}
-	
-	$file = $adapter->getFileName('csv');
-	$file_contents = file_get_contents($file);
-	$csv = array_map('str_getcsv', file($file));
-	
-		foreach ($csv as $teams) {
-			$team = new Team();
-			$team->setTeamname($teams[0]);
-			$team->setLeague($teams[1]);
-			$team->setSport($teams[2]);
-			$dm->persist($team);
-			$dm->flush();
-		}
+		/*
+		 * Create adapter to handle csv parsing
+		 */
+		$adapter = new Http();
+		$adapter->setDestination('public/teams');
+		
+		if (!$adapter->receive()) {
+		   $messages = $adapter->getMessages();
+		   echo implode("\n", $messages);	
+	   }
+	   
+	   $file = $adapter->getFileName('csv');
+	   $file_contents = file_get_contents($file);
+	   $csv = array_map('str_getcsv', file($file));
+	   
+	   /*
+		* Validator to check whether Team already exists in database
+		*/
+	   
+	   $validator = new NoObjectExists(
+				   array('object_manager' => $dm,
+						 'object_repository' => $dm->getRepository('GameManager\Models\Team'),
+						 'fields' => ['teamname'])
+				   );
+	   
+		   foreach ($csv as $teams) {
+			   
+			   $team = new Team();
+			   /*
+				* Create validator to check if the team already exists in database
+				* If it exists, do not entire it again, otherwise persist to database
+				* 
+				*/
+   
+			   if ($validator->isValid($teams[0])){
+			   $team->setTeamname($teams[0]);
+			   $team->setLeague($teams[1]);
+			   $team->setSport($teams[2]);
+			   $dm->persist($team);
+			   $dm->flush();
+			   }
+		   }
 	}
 	
 	return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'TeamAdmin', 'action' => 'view'));
-	#return new ViewModel(array('string' => $csv));
+	
 }
+
 
 public function deleteteamAction()
     {
@@ -192,7 +253,7 @@ public function deleteteamAction()
 				$dm->remove($team);
 				$dm->flush();
             }
-            // Redirect to list of albums
+            
            return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'TeamAdmin', 'action' => 'view'));
         }
         return array(

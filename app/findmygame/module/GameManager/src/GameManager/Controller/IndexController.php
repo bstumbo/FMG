@@ -20,7 +20,7 @@ use GameManager\Tables\BarTable;
 use Zend\Paginator;
 use Zend\Validator\File\Size;
 use Zend\Http\PhpEnvironment\Request;
-
+use GameManager\Controller\Services\AffiliationsRetrieve;
 
 class IndexController extends AbstractActionController
 {
@@ -44,27 +44,18 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
         
-     $this->layout('games');
+		$this->layout('games');
 	 
-	 $dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
+		$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
 
-		//Add Affiliations
-		$affs = $dm->getRepository('GameManager\Models\Team')->findAll();
+		$affiliations = new AffiliationsRetrieve();
+		$affarray = $affiliations->retrieveAff($dm);
 		
-		$leagueOptions = [null => ''];
-		$sportOptions = [null => ''];
-		foreach ($affs as $aff) {
-			$affOptions[$aff->getTeamid()] = $aff->getTeamname();
-			$leagueOptions[$aff->getLeague()] = $aff->getLeague();
-			$sportOptions[$aff->getSport()] = $aff->getSport();
-		}
-		
-		$uniLeagueOptions = array_unique($leagueOptions);
-		$uniSportOptions = array_unique($sportOptions);
-		
-		
-
-         return new ViewModel(array('affs' => $affs, 'leagues' => $uniLeagueOptions, 'sports' => $uniSportOptions));
+		$newaff = $affarray[0];
+		$leagues = $affarray[1];
+		$sports = $affarray[2];
+	
+         return new ViewModel(array('affs' => $newaff, 'leagues' => $leagues, 'sports' => $sports ));
     }
 
    	
