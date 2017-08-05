@@ -72,16 +72,16 @@ $(document).ready(function() {
                                 <div class="hidden" id="sport" style=" float: left; max-width: 250px; width: 100%; margin-top: 10px; margin-bottom: 10px; margin-left: 10px;">
                                 <select  style="max-width: 300px; width: 100%; text-align: center;" name="sports">
                                   <option value="NULL">SELECT A SPORT</option>
-                                 <?php foreach ($leagues as $league) :?>
-                                            <option value="<?php print $league ;?>"><?php print $league;?></option> 
+                                 <?php foreach ($sports as $sport) :?>
+                                            <option value="<?php print $sport ;?>"><?php print $sport;?></option> 
                                     <?php endforeach; ?>
                                 </select>
                                 </div>
                                 <div class="hidden" id="league" style="float: left; max-width: 250px; width: 100%; margin-top: 10px; margin-bottom: 10px; margin-left: 10px;">
                                  <select style="max-width: 700px; width: 100%; text-align: center;" name="leagues" >
                                   <option value="NULL">SELECT A LEAGUE</option>
-                                  <?php foreach ($sports as $sport) :?>
-                                            <option value="<?php print $sport ;?>"><?php print $sport ;?></option> 
+                                  <?php foreach ($leagues as $leagues) :?>
+                                            <option value="<?php print $leagues ;?>"><?php print $leagues ;?></option> 
                                     <?php endforeach; ?>
                                 </select>
                                 </div>
