@@ -70,7 +70,13 @@ class IndexController extends AbstractActionController
 
 		$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
 		$repository = $dm->getRepository('GameManager\Models\Bar');
-		$affs = $dm->getRepository('GameManager\Models\Team')->findAll();
+		
+		$affiliations = new AffiliationsRetrieve();
+		$affarray = $affiliations->retrieveAff($dm);
+		
+		$newaff = $affarray[0];
+		$leagues = $affarray[1];
+		$sports = $affarray[2];
 		
 		$query1 = new BarQuery;
 	
@@ -78,7 +84,7 @@ class IndexController extends AbstractActionController
 		$paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($array));        	
 		$paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
 		
-	    $this->layout()->setVariables(array('affs' => $affs,));
+	    $this->layout()->setVariables(array('newaff' => $newaff, 'leagues' => $leagues, 'sports' => $sports));
         
 		return new ViewModel(array('bars' => $data));
 	}
@@ -96,6 +102,14 @@ class IndexController extends AbstractActionController
 		
 		$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
         $repository = $dm->getRepository('GameManager\Models\Bar');
+		
+		$affiliations_search = new AffiliationsRetrieve();
+		$affarray = $affiliations_search->retrieveAff($dm);
+		
+		$newaff = $affarray[0];
+		$leagues = $affarray[1];
+		$sports = $affarray[2];
+		
 		$bar = $repository->find($id);
 		$repository2 = $dm->getRepository('GameManager\Models\Team');
 		$affs = $bar->getAffiliations();
@@ -103,6 +117,8 @@ class IndexController extends AbstractActionController
 		foreach ($affs as $aff) {
 		 $affiliations[] = $repository2->find($aff);
 		}
+		
+		$this->layout()->setVariables(array('newaff' => $newaff, 'leagues' => $leagues, 'sports' => $sports));
 		
 		return new ViewModel(array('bar' => $bar, 'affiliations' => $affiliations));
 	 

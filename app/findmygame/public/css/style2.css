@@ -5,6 +5,15 @@ body{
     max-width: 940px;
 }
 
+
+.results-container {
+	
+	max-width: 940px;
+	width: 100%;
+	margin-left: auto;
+    margin-right: auto;
+}
+
 .container-left {
 	margin-right: 0px !important;
 	margin-left: 0px !important;

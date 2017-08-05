@@ -59,29 +59,30 @@ $(document).ready(function() {
                                  <form method="post" name="FindMyGameForm" action="<?php echo $this->url('findmygame/search') ?>"  contact-form" id="FindMyGameForm">
                                     <div class="control-group form-type-textfield form-item-name form-item">
                                     <div style="float: left; max-width: 300px; width: 100%; margin-top: 10px; margin-bottom: 10px;">
-                                      <input type="text" id="edit-name" name="Location" value="Address or Zip Code" size="80" maxlength="255" style="max-width: 300px;" class="form-text required">
+                                      <input type="text" id="edit-name" name="Location" placeholder="Address or Zip Code" size="80" maxlength="255" style="max-width: 300px;" class="form-text required">
                                     </div>
                                     <div id="team" style=" float: left; max-width: 250px; width: 100%; margin-top: 10px; margin-bottom: 10px; margin-left: 10px;">
                                     <select style="max-width: 300px; width: 100%;" name="affiliations" class="affiliations">
                                   <option value="NULL">SELECT A TEAM</option>
-                                    <?php foreach ($affs as $aff) :?>
-                                            <option value="<?php print $aff->getTeamid() ;?>"><?php print $aff->getTeamname();?></option> 
+                                    <?php foreach ($newaff as $i => $aff) :?>
+                                            <option value="<?php print $i ;?>"><?php print $aff;?></option> 
                                     <?php endforeach; ?>
                                 </select>
                                 </div>
                                 <div class="hidden" id="sport" style=" float: left; max-width: 250px; width: 100%; margin-top: 10px; margin-bottom: 10px; margin-left: 10px;">
                                 <select  style="max-width: 300px; width: 100%; text-align: center;" name="sports">
                                   <option value="NULL">SELECT A SPORT</option>
-                                  <option value="0">Baseball</option>
-                                  <option value="1">Soccer</option>
+                                 <?php foreach ($leagues as $league) :?>
+                                            <option value="<?php print $league ;?>"><?php print $league;?></option> 
+                                    <?php endforeach; ?>
                                 </select>
                                 </div>
                                 <div class="hidden" id="league" style="float: left; max-width: 250px; width: 100%; margin-top: 10px; margin-bottom: 10px; margin-left: 10px;">
                                  <select style="max-width: 700px; width: 100%; text-align: center;" name="leagues" >
                                   <option value="NULL">SELECT A LEAGUE</option>
-                                  <option value="0">MLB</option>
-                                  <option value="1">MLS</option>
-                                  <option value="2">Euro Cup</option>
+                                  <?php foreach ($sports as $sport) :?>
+                                            <option value="<?php print $sport ;?>"><?php print $sport ;?></option> 
+                                    <?php endforeach; ?>
                                 </select>
                                 </div>
                                 <div style="float: left; margin-left: 10px; max-width: 100px; width: 100%; margin-top: 10px; margin-bottom: 10px;">
