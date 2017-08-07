@@ -5,6 +5,7 @@ $(document).ready(function() {
   $(".leagues").select2();
 });
 </script>
+<script src="../../../ckeditor/ckeditor.js"></script>
 <?php
 
 $form = $this->form;
@@ -14,3 +15,9 @@ $form->prepare();
 echo $this->form()->openTag($form);
 echo $this->formCollection($form);
 echo $this->form()->closeTag();
+
+?>
+
+<script>
+  CKEDITOR.replace( 'ckeditor' );
+</script>

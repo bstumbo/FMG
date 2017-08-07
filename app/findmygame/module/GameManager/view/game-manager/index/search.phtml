@@ -21,7 +21,7 @@
                         <div class="content sh-block-content">
                            <h1><a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment> NOT ONLY grace-drops
             array('controller' => 'index', 'action'=>'viewindi', 'id' => $bar->getId()));?>"><?php print $this->escapeHtml($bar->name);?></a></h1>
-                           <p><?php print $this->escapeHtml($bar->bardescription);?></p>
+                           <p><?php print $bar->bardescription ;?></p>
                            <!--<p><strong>User Ranking:</strong> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-o"></i></p>-->
                            <a class="btn btn-primary btn-xs" href="https://www.google.com/maps/dir/<?php echo $bar->getLocation();?>/<?php echo $_POST['Location'];?>
 " target="_blank">Directions</a>

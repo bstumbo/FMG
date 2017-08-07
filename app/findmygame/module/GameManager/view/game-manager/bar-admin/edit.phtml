@@ -5,17 +5,22 @@ $(document).ready(function() {
   $(".leagues").select2();
 });
 </script>
+<script src="../../../../ckeditor/ckeditor.js"></script>
 <?php
 echo 'Edit Bar';
 
 $form = $this->form;
 $form->prepare();
 // Assuming the "contact/process" route exists...
-$form->setAttribute('action', $this->url('findmygame/default', array('controller' => 'Index', 'action' => 'edit', 'id' => $this->id))); //'contact/process'));
+$form->setAttribute('action', $this->url('findmygame/default', array('controller' => 'BarAdmin', 'action' => 'edit', 'id' => $this->id))); //'contact/process'));
 
 
 // Set the method attribute for the form
 $form->setAttribute('method', 'post');
 echo $this->form()->openTag($form);
 echo $this->formCollection($form);
-echo $this->form()->closeTag();
+echo $this->form()->closeTag(); ?>
+
+<script>
+  CKEDITOR.replace( 'ckeditor' );
+</script>

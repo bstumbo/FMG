@@ -91,6 +91,7 @@ class Bar
      * @Annotation\Type("Zend\Form\Element\Textarea")
      * @Annotation\Required(false)
      * @Annotation\Options({"label":"Bar Description"})
+     * @Annotation\Attributes({"class":"ckeditor"})
      * @ODM\Field(type="string")
      
      */
@@ -264,6 +265,7 @@ class Bar
      * @Annotation\Type("Zend\Form\Element\Textarea")
      * @Annotation\Required(false)
      * @Annotation\Options({"label":"Staples:"})
+     * @Annotation\Attributes({"class":"ckeditor"})
      * @ODM\Field(type="string")
      
      */
@@ -275,6 +277,7 @@ class Bar
      * @Annotation\Type("Zend\Form\Element\Textarea")
      * @Annotation\Required(false)
      * @Annotation\Options({"label":"Menu:"})
+     * @Annotation\Attributes({"class":"ckeditor"})
      * @ODM\Field(type="string")
      
      */
@@ -330,6 +333,7 @@ class Bar
      * @Annotation\Type("Zend\Form\Element\Textarea")
      * @Annotation\Required(false)
      * @Annotation\Options({"label":"Drink Specials"})
+     * @Annotation\Attributes({"class":"ckeditor"})
      * @ODM\Field(type="string") 
      */
     
@@ -393,7 +397,7 @@ class Bar
      * @Annotation\Type("Zend\Form\Element\Textarea")
      * @Annotation\Required(false)
      * @Annotation\Options({"label":"TV Specials",})
-     *                       
+     * @Annotation\Attributes({"class":"ckeditor"})                       
      * @ODM\Field(type="string")
      
      */
@@ -451,6 +455,7 @@ class Bar
      * @Annotation\Type("Zend\Form\Element\Textarea")
      * @Annotation\Required(false)
      * @Annotation\Options({"label":"Special notes"})
+     * @Annotation\Attributes({"class":"ckeditor"})
      * @ODM\Field(type="string")
      
      */
