@@ -187,11 +187,7 @@ class BarAdminController extends AbstractActionController {
         
         $bars = $dm->getRepository('GameManager\Models\Bar')->findBy(array(), 
                  array('name' => 'ASC'));
-        //$query = $qb->getQuery();
-        //$bars = $query->execute();
-	   
-	   var_dump($bars);
-		
+
 	 return new ViewModel(array('bars' => $bars));
 	   }
     }
