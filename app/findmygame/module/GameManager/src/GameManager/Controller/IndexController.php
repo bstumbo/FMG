@@ -17,10 +17,14 @@ use GameManager\Models\Team;
 use GameManager\Models\Image;
 use GameManager\Queries\BarQuery;
 use GameManager\Tables\BarTable;
-use Zend\Paginator;
 use Zend\Validator\File\Size;
 use Zend\Http\PhpEnvironment\Request;
 use GameManager\Controller\Services\AffiliationsRetrieve;
+use Zend\Paginator\Adapter;
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\ArrayAdapter;
+
+
 
 class IndexController extends AbstractActionController
 {
@@ -81,12 +85,20 @@ class IndexController extends AbstractActionController
 		$query1 = new BarQuery;
 	
 		$array = $query1->barsearch();
-		$paginator = new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\ArrayAdapter($array));        	
-		$paginator->setCurrentPageNumber($this->params()->fromRoute('page'));
-		
+	
 	    $this->layout()->setVariables(array('newaff' => $newaff, 'leagues' => $leagues, 'sports' => $sports));
+		
+		
         
-		return new ViewModel(array('bars' => $data));
+		$barsarray = array('bars' => $data);
+		$paginator = new Paginator(new ArrayAdapter($array));
+		$page = $this->params()->fromRoute('page', 1);
+		$paginator->setCurrentPageNumber($page);
+		$paginator->setItemCountPerPage(5);
+		
+		$vm = new ViewModel(array('bars' => $data));
+		$vm->setVariable('paginator', $paginator);
+		return $vm;
 	}
 	
 	public function viewindiAction() {

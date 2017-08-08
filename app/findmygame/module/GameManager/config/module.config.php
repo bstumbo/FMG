@@ -162,12 +162,12 @@ return array(
                       ),
                       'may_terminate' => true,
                   ),
-                   'paginatior' => array(
-                        'type' => 'Segment',
+                   'paginator' => array(
+                        'type' => 'segment',
                         'options' => array(
-                            'route' => '/[page/:page]',
+                            'route' => '/search/[page/:page]',
                             'defaults' => array(
-                                'page' => '[0-9]*',
+                                'page' => '1',
                             ),
                         ),
                     ),

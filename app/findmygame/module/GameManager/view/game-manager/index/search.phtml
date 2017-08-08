@@ -2,7 +2,7 @@
 <div id="queryresult" class="results-container">
    <?php if (isset($_POST['submit'])) { ?>
    <h1>You Can Watch Your Game At:</h1>
-   <?php foreach ($bars as $bar) :?>
+   <?php foreach ($this->paginator as $bar) :?>
       <section  id="section-feature" class="section section-feature">
          <div class="">
             <div class="row">
@@ -39,6 +39,15 @@
       </section>
    <?php endforeach; ?>
    <?php } ?>
+   <?php echo $this->paginationControl($this->paginator,
+                                    'Sliding',
+                                    'partials/paginator.phtml', array('route' => 'findmygame/search')); ?>
+</body>
+</html>
+
+</body>
+</html>
+
 </div>
 <div class="map-wrapper">
          <div id="map"></div>
@@ -65,7 +74,7 @@
               }
             </script>
             <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLu1f9PKtlbwaKo5y6RFMp76H-_bvexkY&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAO9NoMrXAL5uKv0lcMcVpthU8hNsGArDA&callback=initMap">
             </script>
 </div>
 
