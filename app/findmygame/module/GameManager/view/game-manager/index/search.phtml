@@ -1,11 +1,12 @@
-<div id="queryresult" class="container">
+
+<div id="queryresult" class="results-container">
    <?php if (isset($_POST['submit'])) { ?>
    <h1>You Can Watch Your Game At:</h1>
    <?php foreach ($bars as $bar) :?>
       <section  id="section-feature" class="section section-feature">
-         <div class="results-container">
+         <div class="">
             <div class="row">
-               <div class="region region-feature-first col-xs-6 col-sm-6 col-md-4 col-lg-4">
+               <div class="region region-feature-first col-xs-6 col-sm-6 col-md-6 col-lg-6">
                   <div id="block-block-51" class="block block-block contextual-links-region">
                      <div class="block-contents" >
                         <div style="box-sizing: border-box;" class="content sh-block-content">
@@ -15,7 +16,7 @@
                      <div style="clear:both" class="clear-fix"></div>
                   </div>
                </div>
-               <div class="region region-feature-second col-xs-6 col-sm-6 col-md-4 col-lg-4">
+               <div class="region region-feature-second col-xs-6 col-sm-6 col-md-6 col-lg-6">
                   <div id="block-block-52" class="block block-block contextual-links-region">
                      <div class="block-contents">
                         <div class="content sh-block-content">
@@ -38,5 +39,33 @@
       </section>
    <?php endforeach; ?>
    <?php } ?>
+</div>
+<div class="map-wrapper">
+         <div id="map"></div>
+            <script>
+               
+               var barjson = <?= json_encode($bars); ?>;
+               var count = Object.keys(barjson).length;
+               
+              function initMap() {
+                var DC = {lat: 38.8974286, lng: -77.0660378};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 12,
+                  center: DC
+                });
+                  
+                  for (var i = 0; i < count; i++){
+                     var latLng = new google.maps.LatLng(barjson[i].latitude,barjson[i].longitude)
+                     var marker = new google.maps.Marker({
+                     position: latLng,
+                     map: map
+                   });
+                }
+   
+              }
+            </script>
+            <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLu1f9PKtlbwaKo5y6RFMp76H-_bvexkY&callback=initMap">
+            </script>
 </div>
 

@@ -116,6 +116,7 @@ class IndexController extends AbstractActionController
 		$affiliations = array();
 		foreach ($affs as $aff) {
 		 $affiliations[] = $repository2->find($aff);
+		 
 		}
 		
 		$this->layout()->setVariables(array('newaff' => $newaff, 'leagues' => $leagues, 'sports' => $sports));

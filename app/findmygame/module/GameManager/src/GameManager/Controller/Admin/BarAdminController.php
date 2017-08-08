@@ -189,6 +189,8 @@ class BarAdminController extends AbstractActionController {
                  array('name' => 'ASC'));
         //$query = $qb->getQuery();
         //$bars = $query->execute();
+	   
+	   var_dump($bars);
 		
 	 return new ViewModel(array('bars' => $bars));
 	   }

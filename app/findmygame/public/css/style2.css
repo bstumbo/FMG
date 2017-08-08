@@ -8,10 +8,11 @@ body{
 
 .results-container {
 	
-	max-width: 940px;
-	width: 100%;
-	margin-left: auto;
-    margin-right: auto;
+	max-width: 750px;
+	/*width: 100%;*/
+	float: left;
+	margin-left: 2%;
+    margin-right: 2%;
 }
 
 .container-left {
@@ -19,6 +20,18 @@ body{
 	margin-left: 0px !important;
 	padding-left: 5% !important;
 }
+
+.map-wrapper {
+	float: left;
+	max-width: 450px;
+	width: 100%;
+}
+
+#map {
+        width: 100%;
+        height: 400px;
+        background-color: grey;
+      }
 
 .overlay-dark {
 	position: absolute;
