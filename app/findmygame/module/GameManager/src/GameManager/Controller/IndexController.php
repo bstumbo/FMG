@@ -20,9 +20,6 @@ use GameManager\Tables\BarTable;
 use Zend\Validator\File\Size;
 use Zend\Http\PhpEnvironment\Request;
 use GameManager\Controller\Services\AffiliationsRetrieve;
-use Zend\Paginator\Adapter;
-use Zend\Paginator\Paginator;
-use Zend\Paginator\Adapter\ArrayAdapter;
 
 
 
@@ -66,12 +63,11 @@ class IndexController extends AbstractActionController
 	public function searchAction()
     {
 	 
-	 $this->layout('search');
-	   //$this->layout('result-partial');
-	 
-	   global $repository;
-	   global $data;
+		$this->layout('search');
 
+		global $repository;
+		global $data;
+		
 		$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
 		$repository = $dm->getRepository('GameManager\Models\Bar');
 		
@@ -86,19 +82,14 @@ class IndexController extends AbstractActionController
 	
 		$array = $query1->barsearch();
 	
-	    $this->layout()->setVariables(array('newaff' => $newaff, 'leagues' => $leagues, 'sports' => $sports));
-		
+		$this->layout()->setVariables(array('newaff' => $newaff, 'leagues' => $leagues, 'sports' => $sports));
 		
         
 		$barsarray = array('bars' => $data);
-		$paginator = new Paginator(new ArrayAdapter($array));
-		$page = $this->params()->fromRoute('page', 1);
-		$paginator->setCurrentPageNumber($page);
-		$paginator->setItemCountPerPage(5);
 		
-		$vm = new ViewModel(array('bars' => $data));
-		$vm->setVariable('paginator', $paginator);
-		return $vm;
+		
+		return new ViewModel(array('bars' => $data));
+		
 	}
 	
 	public function viewindiAction() {
