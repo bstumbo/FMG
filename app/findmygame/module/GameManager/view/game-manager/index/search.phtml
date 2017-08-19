@@ -56,19 +56,38 @@
                  function initMap() {
                    var DC = {lat: 38.8974286, lng: -77.0660378};
                    var map = new google.maps.Map(document.getElementById('map'), {
-                     zoom: 12,
-                     center: DC
+                     zoom: 12
                    });
+                   setMarkers(map, barjson)
+                   
+                 }
+                 
+                 function setMarkers(map, barjson){
                      
                      for (var i = 0; i < count; i++){
                         var latLng = new google.maps.LatLng(barjson[i].latitude,barjson[i].longitude)
+                        var contentString = '<div id="content">'+
+                        '<p><a href="index/viewindi/' + barjson[i].id + '"/>' + barjson[i].name + '</a></p>' +
+                        '<p>' + barjson[i].bardescription + '</p>' +
+                        '</div>'
+                        
                         var marker = new google.maps.Marker({
                         position: latLng,
                         map: map
                       });
+                        map.setCenter(marker.getPosition())
+                        
+                        var infowindow = new google.maps.InfoWindow()
+                        
+                        google.maps.event.addListener(marker,'click', (function(marker,contentString,infowindow){ 
+                        return function() {
+                           infowindow.setContent(contentString);
+                           infowindow.open(map,marker);
+                        };
+                    })(marker,contentString,infowindow)); 
                    }
-      
                  }
+      
                </script>
                <script async defer
                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAO9NoMrXAL5uKv0lcMcVpthU8hNsGArDA&callback=initMap">
