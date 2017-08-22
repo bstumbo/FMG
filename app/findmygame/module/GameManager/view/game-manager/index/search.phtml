@@ -3,6 +3,47 @@
       <h1>You Can Watch Your Game At:</h1>
       <div id="queryresult">
          <?php if (isset($_POST['submit'])) { ?>
+        <?php if ($featured != null){
+         echo "<h2>Featured Bars</h2>";
+        } ?>
+         <?php foreach ($featured as $feature) :?>
+            <section  id="section-feature" class="section section-feature">
+               <div class="">
+                  <div class="row">
+                     <div class="region region-feature-first col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div id="block-block-51" class="block block-block contextual-links-region">
+                           <div class="block-contents" >
+                              <div style="box-sizing: border-box;" class="content sh-block-content">
+                                 <p><img alt="" src="<?php if(!null == $feature->getBarimage()){ echo "../../module/GameManager/src/GameManager/Assets/" . $feature->getBarimage();} else { echo "http://placehold.it/283x192"; } ?>" style="height:192px; width:283px" /></p>
+                              </div>
+                           </div>
+                           <div style="clear:both" class="clear-fix"></div>
+                        </div>
+                     </div>
+                     <div class="region region-feature-second col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div id="block-block-52" class="block block-block contextual-links-region">
+                           <div class="block-contents">
+                              <div class="content sh-block-content">
+                                 <h1><a href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment> NOT ONLY grace-drops
+                  array('controller' => 'index', 'action'=>'viewindi', 'id' => $feature->getId()));?>"><?php print $this->escapeHtml($feature->name);?></a></h1>
+                                 <p><?php print $feature->bardescription ;?></p>
+                                 <!--<p><strong>User Ranking:</strong> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-half-o"></i></p>-->
+                                 <a class="btn btn-primary btn-xs" href="https://www.google.com/maps/dir/<?php echo $feature->getLocation();?>/<?php echo $_POST['Location'];?>
+      " target="_blank">Directions</a>
+                                 <!--<a class="btn btn-primary btn-xs">Rate</a> -->
+                                 <a class="btn btn-primary btn-xs" href="<?php echo $this->url('findmygame/default', // SUPER IMPORTANT use grace-drops/<segment> NOT ONLY grace-drops
+                  array('controller' => 'index', 'action'=>'viewindi', 'id' => $feature->getId()));?>">More Info...</a>
+                              </div>
+                           </div>
+                           <div style="clear:both" class="clear-fix"></div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+         <?php endforeach;?>
+         
+         <hr />
          <?php foreach ($bars as $bar) :?>
             <section  id="section-feature" class="section section-feature">
                <div class="">
@@ -42,8 +83,8 @@
          <?php } ?>
       </div>
       <script type="text/javascript">
-            $('#queryresult').paginate({ 'perPage': 5 });
-            $('#queryresult').paginatePosition('above');
+            $('#queryresult').paginate({ 'perPage': 10 });
+            //$('#queryresult').paginatePosition('above');
          </script>
    </div>
    <div class="map-wrapper">
@@ -51,15 +92,17 @@
                <script>
                   
                   var barjson = <?= json_encode($bars); ?>;
+                  var featuredjson = <?= json_encode($featured); ?>;
                   var count = Object.keys(barjson).length;
+                  var featured_count = Object.keys(featuredjson).length;
                   
                  function initMap() {
                    var DC = {lat: 38.8974286, lng: -77.0660378};
                    var map = new google.maps.Map(document.getElementById('map'), {
                      zoom: 12
                    });
+                   setFeatured(map, featuredjson)
                    setMarkers(map, barjson)
-                   
                  }
                  
                  function setMarkers(map, barjson){
@@ -73,6 +116,7 @@
                         
                         var marker = new google.maps.Marker({
                         position: latLng,
+                        icon: '../img/red-dot.png',
                         map: map
                       });
                         map.setCenter(marker.getPosition())
@@ -88,6 +132,32 @@
                    }
                  }
       
+               
+                  function setFeatured(map, featuredjson) {
+                    for (var i = 0; i < featured_count; i++){
+                        var latLng = new google.maps.LatLng(featuredjson[i].latitude,featuredjson[i].longitude)
+                        var contentString = '<div id="content">'+
+                        '<p><a href="index/viewindi/' + featuredjson[i].id + '"/>' + featuredjson[i].name + '</a></p>' +
+                        '<p>' + featuredjson[i].bardescription + '</p>' +
+                        '</div>'
+                        
+                        var marker = new google.maps.Marker({
+                        position: latLng,
+                        icon: '../img/blue-dot.png',
+                        map: map
+                      });
+                        map.setCenter(marker.getPosition())
+                        
+                        var infowindow = new google.maps.InfoWindow()
+                        
+                        google.maps.event.addListener(marker,'click', (function(marker,contentString,infowindow){ 
+                        return function() {
+                           infowindow.setContent(contentString);
+                           infowindow.open(map,marker);
+                        };
+                    })(marker,contentString,infowindow)); 
+                   }
+                  }
                </script>
                <script async defer
                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAO9NoMrXAL5uKv0lcMcVpthU8hNsGArDA&callback=initMap">

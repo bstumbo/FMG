@@ -58,12 +58,13 @@ public function barsearch() {
 		$bars = $repository->findBy($query);
 	
 		global $data;
+		global $featured;
 		
 		$data = array();
+		$featured = array();
 		
 		foreach ($bars as $bar) {
-		 
-		 
+		  
 		 $barlocation = $bar->point;
 		 
 		 $dmatrix = new Distancematrix($userlocation, $barlocation);
@@ -71,16 +72,23 @@ public function barsearch() {
 		 
 		 $distance = $result['distance'];
 		 
-		 if ($distance < 16093) {
-				
-			$data[] = $bar;
-		 
-		 }
-		 	 
-	}
+		 if ($_POST['affiliations'] != "NULL") {
+			if ($distance < 16093 && $bar->featured == true) {
+			       $featured[] = $bar;
+			}
+			elseif ($distance < 16093) {
+			       $data[] = $bar;
+			}
+		 } else {
+			if ($distance < 16093) {
+				$data[] = $bar;
+			       
+			}
+		    }
+		}
 	
-	return $data;
+	return array($featured, $data);
 
-}
+	}
 
 }

@@ -67,6 +67,7 @@ class IndexController extends AbstractActionController
 
 		global $repository;
 		global $data;
+		global $featured;
 		
 		$dm = $this->getServiceLocator()->get('doctrine.documentmanager.odm_default');
 		$repository = $dm->getRepository('GameManager\Models\Bar');
@@ -88,7 +89,7 @@ class IndexController extends AbstractActionController
 		$barsarray = array('bars' => $data);
 		
 		
-		return new ViewModel(array('bars' => $data));
+		return new ViewModel(array('bars' => $data, 'featured' => $featured));
 		
 	}
 	

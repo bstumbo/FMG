@@ -209,6 +209,18 @@ class GameManagerModelsBarHydrator implements HydratorInterface
             $hydratedData['sports'] = $return;
         }
 
+        /** @Field(type="boolean") */
+        if (isset($data['featured']) || (! empty($this->class->fieldMappings['featured']['nullable']) && array_key_exists('featured', $data))) {
+            $value = $data['featured'];
+            if ($value !== null) {
+                $return = (bool) $value;
+            } else {
+                $return = null;
+            }
+            $this->class->reflFields['featured']->setValue($document, $return);
+            $hydratedData['featured'] = $return;
+        }
+
         /** @Field(type="int") */
         if (isset($data['vibe']) || (! empty($this->class->fieldMappings['vibe']['nullable']) && array_key_exists('vibe', $data))) {
             $value = $data['vibe'];

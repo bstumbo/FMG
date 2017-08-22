@@ -187,6 +187,17 @@ class Bar
      
      */
     public $sports;
+    
+    /**
+     * 
+     * @Annotation\Type("Zend\Form\Element\checkbox")
+     * @Annotation\Required(false)
+     * @Annotation\Options({"label":"Featured:"})
+     * @ODM\Field(type="boolean")
+     
+     */
+    
+    public $featured;
 
     /**
      * 
@@ -197,6 +208,7 @@ class Bar
      * @ODM\Field(type="int")
      
      */
+    
     
     public $vibe;
     
@@ -584,6 +596,9 @@ class Bar
         
     }
      public function setSports($sports) { $this->sports = $sports; }
+     
+     public function getFeatured() {return $this->featured;}
+     public function setFeatured($featured) { $this->featured = $featured; }
      
      public function getVibe() {return $this->vibe; }
      public function getVibeview(){

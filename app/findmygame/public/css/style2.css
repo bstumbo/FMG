@@ -46,3 +46,7 @@ body{
 	margin-left: auto;
 	margin-right: auto;
 }
+
+.paid-feature {
+	background-color: #29bcb8;
+}
