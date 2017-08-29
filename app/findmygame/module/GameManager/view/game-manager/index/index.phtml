@@ -8,43 +8,53 @@ $(document).ready(function() {
 		<div class="sh-container">
 		<div class="row">
 			<div class="region region-postcontent-first">
-	<div id="block-block-48" class="block block-block center contextual-links-region superhero-block parallax" style="background-image: url('http://54.71.102.208/sites/default/files/winners_parallax.jpg'); padding-top: 50px; padding-bottom: 100px;" data-stellar-background-ratio="0.50">
+	<div id="block-block-48" class="block block-block center contextual-links-region superhero-block parallax" style="background-image: url('http://54.71.102.208/app/findmygame/public/img/DC_Night_2.jpg'); padding-top: 50px; padding-bottom: 100px;" data-stellar-background-ratio="0.50">
     <div class="block-contents " data-appear-animation="pulse">
 	  <div class="content sh-block-content">
 	    <div style="padding: 40px; margin-left: auto; margin-right: auto; max-width: 700px; background: rgba(52, 55, 62, 0.9);">
 <h1 class="rtecenter"><span style="color:#FFFFFF;">FIND MY GAME</span></h1>
 <br>
-<p>Enter the address of your current location or the zip code</p>
+<p>STEP 1: Enter the address of your current DC location or the zip code</p>
   <form method="post" name="FindMyGameForm" action="<?php echo $this->url('findmygame/search') ?>"  contact-form" id="FindMyGameForm">
 	<div class="control-group form-type-textfield form-item-name form-item">
     <div style="clear: both;">
 	  
-	  <input type="text" id="edit-name" name="Location" placeholder="Address or Zip Code" size="80" maxlength="255" style="max-width: 300px;" class="form-text required">
+	  <input type="text" id="edit-name" name="Location" placeholder="Address or Zip Code" size="80" maxlength="255" style="max-width: 300px; margin-bottom: 10px;" class="form-text required">
     </div>
-    <div id="team" style="max-width: 700px; width: 100%; margin-top: 10px; margin-bottom: 25px;">
-	    <select style="max-width: 700px; width: 100%;" name="affiliations" class="affiliations">
+		<div style="clear:both" class="clear-fix"></div>
+		<p>STEP 2: Select the team you are trying to watch.
+			You can also search by Sport or League
+		</p>
+    <div id="team" style="max-width: 300px; width: 100%; margin-top: 10px; margin-bottom: 5px; margin-left: auto; margin-right: auto;">
+	    <select style="max-width: 300px; width: 100%;" name="affiliations" class="affiliations">
       <option value="NULL">SELECT A TEAM</option>
 		<?php foreach ($affs as $i => $aff) :?>
 				<option value="<?php print $i ;?>"><?php print $aff;?></option> 
 		<?php endforeach; ?>
     </select>
     </div>
-	<div class="hidden" id="sport" style="max-width: 700px; width: 100%; margin-top: 10px; margin-bottom: 25px;">
-	<select  style="max-width: 700px; width: 100%; text-align: center;" name="sports">
+	<div class="hidden" id="sport" style="max-width: 300px; width: 100%; margin-top: 10px; margin-bottom: 5px; margin-left: auto; margin-right: auto;">
+	<select  style="max-width:  300px; width: 100%; text-align: center;" name="sports">
       <option value="NULL">SELECT A SPORT</option>
       <?php foreach ($sports as $i => $sport) :?>
 				<option value="<?php print $i ;?>"><?php print $sport;?></option> 
 			<?php endforeach; ?>
     </select>
 	</div>
-	<div class="hidden" id="league" style="max-width: 700px; width: 100%; margin-top: 10px; margin-bottom: 25px;">
-     <select style="max-width: 700px; width: 100%; text-align: center;" name="leagues" >
+	<div class="hidden" id="league" style="max-width: 300px; width: 100%; margin-top: 10px; margin-bottom: 5px; margin-left: auto; margin-right: auto;">
+     <select style="max-width: 300px; width: 100%; text-align: center;" name="leagues" >
       <option value="NULL">SELECT A LEAGUE</option>
       <?php foreach ($leagues as $i => $league) :?>
 				<option value="<?php print $i ;?>"><?php print $league;?></option> 
 			<?php endforeach; ?>
     </select>
 	</div>
+	<div style=" margin-top: 10px; margin-bottom: 25px; display: inline-block;">
+		<a id="sportlink" href="#">Search by Sport</a> | 
+		<a id="leaguelink" href="#">Search by League</a>
+		</div>
+	<div style="clear:both" class="clear-fix"></div>
+	<p>STEP 3: Search to find your game!</p>
 	<input style="max-width:300px;" type="submit" name="submit" class="btn btn-primary btn-block btn-lg" value="SEARCH">
 	</div>
   </form>
