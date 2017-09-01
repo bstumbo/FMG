@@ -24,6 +24,7 @@ return array(
             './vendor',
            'GoogleMapsTools' => './vendor/sgoranov/google-maps-tools',
            'ZfcUserDoctrineMongoODM' => './vendor/ZfUserDoctrineMongoODM',
+           'Googleanalytics' => './vendor/netzfabrik/googleanalytics'
         ),
         'config_glob_paths' => array(
             'config/autoload/{{,*.}global,{,*.}local}.php',
