@@ -15,6 +15,7 @@ return array(
         'DoctrineMongoODMModule',
         'ZfcUserDoctrineMongoODM',
         'GoogleMapsTools',
+        'Googleanalytics',
         
     ),
     'module_listener_options' => array(

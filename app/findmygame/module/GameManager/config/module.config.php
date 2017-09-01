@@ -191,6 +191,7 @@ return array(
         'template_map' => array(
            'result-partial' => __DIR__ . '/../view/game-manager/index/partials/result-partial.phtml',
            'search' => __DIR__ . '/../view/layouts/game-layout_search.phtml',
+           'noresult' => __DIR__ . '/../view/layouts/game-layout_search.phtml',
            'games' => __DIR__ . '/../view/layouts/game-layout_home.phtml',
            'viewindi' => __DIR__ . '/../view/layouts/game-layout_search.phtml',
            'edit' => __DIR__ . '/../view/layouts/game-layout.phtml',

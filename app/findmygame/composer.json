@@ -6,6 +6,12 @@
         "framework",
         "zf2"
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/netzfabrik/googleanalytics"
+        }
+    ],
     "homepage": "http://framework.zend.com/",
     "require": {
         "php": ">=5.5",
@@ -14,6 +20,7 @@
         "doctrine/doctrine-module": "dev-master",
         "doctrine/doctrine-mongo-odm-module": "~0.11.0",
         "sgoranov/google-maps-tools": "dev-master",
-        "ircmaxell/random-lib": "^1.2"
+        "ircmaxell/random-lib": "^1.2",
+        "netzfabrik/googleanalytics": "*"
     }
 }

@@ -82,12 +82,18 @@ class IndexController extends AbstractActionController
 		$query1 = new BarQuery;
 	
 		$array = $query1->barsearch();
+		
+		$this->layout()->setVariables(array('newaff' => $newaff, 'leagues' => $leagues, 'sports' => $sports));
+		
+		if (empty($data)) {
+			$view = new ViewModel();
+			$view->setTemplate('game-manager/index/noresult.phtml');
+			return $view;
+		}
 	
 		$this->layout()->setVariables(array('newaff' => $newaff, 'leagues' => $leagues, 'sports' => $sports));
 		
-        
 		$barsarray = array('bars' => $data);
-		
 		
 		return new ViewModel(array('bars' => $data, 'featured' => $featured));
 		

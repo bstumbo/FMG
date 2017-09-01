@@ -56,9 +56,10 @@ class Bar
      
     /**
      * 
-     * @Annotation\Type("Zend\Form\Element\Text")
+     * @Annotation\Type("Zend\Form\Element\Textarea")
      * @Annotation\Required(false)
-     * @Annotation\Options({"label":"Hours:"})
+     * @Annotation\Options({"label":"Hours:" })
+    * @Annotation\Attributes({"class":"ckeditor"})
      * @ODM\Field(type="string")
      
      */
