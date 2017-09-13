@@ -8,7 +8,7 @@ body{
 
 .results-container {
 	
-	max-width: 750px;
+	max-width: 675px;
 	/*width: 100%;*/
 	float: left;
 	margin-left: 2%;
@@ -49,4 +49,12 @@ body{
 
 .paid-feature {
 	background-color: #29bcb8;
+}
+
+.span12-container {
+	max-width: 940px;
+    margin-left: auto;
+    margin-right: auto;
+	padding-left: 15px;
+    padding-right: 15px;
 }
