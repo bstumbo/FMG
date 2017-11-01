@@ -177,7 +177,6 @@ public function bulkuploadteamsAction() {
 		 */
 		$adapter = new Http();
 		$adapter->setDestination('public/teams');
-		
 		if (!$adapter->receive()) {
 		   $messages = $adapter->getMessages();
 		   echo implode("\n", $messages);	
