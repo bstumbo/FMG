@@ -149,7 +149,7 @@ class BarAdminController extends AbstractActionController {
 				   
                     $form->setMessages(array('barimage'=>$error ));
                 } else {
-                    $adapter->setDestination(dirname(__DIR__).'../../Assets');
+                    $adapter->setDestination(dirname(__DIR__).'/../Assets');
                     if ($adapter->receive($File['filename'])) {		   
 						echo "Success!";
                 }
