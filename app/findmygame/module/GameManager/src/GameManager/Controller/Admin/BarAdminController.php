@@ -268,7 +268,7 @@ class BarAdminController extends AbstractActionController {
                $dm->flush();
             }
             
-             return $this->redirect()->toRoute('findmygame/default',  array('controller' => 'Index', 'action' => 'view'));
+             return $this->redirect()->toRoute('findmygame/default', array('controller' => 'BarAdmin', 'action' => 'view'));
         }
          
         return array('form'=>$form);
